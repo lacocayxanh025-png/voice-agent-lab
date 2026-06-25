@@ -1,0 +1,53 @@
+{
+  "version": "0.1.0",
+  "start_node": "identity_explain",
+  "default_node": "clarify_once",
+  "global_guards": {
+    "max_clarifying_turns": 1,
+    "high_risk_policy": "short_answer_then_handoff_or_stop",
+    "forbidden_promises": [
+      "guaranteed approval",
+      "no risk",
+      "always free",
+      "we already verified you",
+      "you must share this information"
+    ]
+  },
+  "nodes": {
+    "safe_stop": {
+      "goal": "Stop contact when the user asks not to be contacted.",
+      "terminal": true,
+      "stop_contact_required": true
+    },
+    "privacy_boundary": {
+      "goal": "Respect privacy concerns and ask only for minimum necessary information.",
+      "next_expected": ["human_handoff", "schedule_callback", "clarify_once"]
+    },
+    "identity_explain": {
+      "goal": "Explain assistant identity without pretending to be a human or official authority.",
+      "next_expected": ["process_explain", "cost_boundary", "schedule_callback"]
+    },
+    "cost_boundary": {
+      "goal": "Answer cost questions without making a binding quote.",
+      "handoff_recommended": true
+    },
+    "schedule_callback": {
+      "goal": "Collect a non-sensitive callback window.",
+      "next_expected": ["human_handoff", "safe_stop"]
+    },
+    "human_handoff": {
+      "goal": "Escalate to a human representative.",
+      "handoff_required": true
+    },
+    "process_explain": {
+      "goal": "Explain the routing process at a high level."
+    },
+    "need_probe": {
+      "goal": "Ask one broad need-classification question."
+    },
+    "clarify_once": {
+      "goal": "Ask one clarification, then route to improvement queue if still unknown.",
+      "max_retry": 1
+    }
+  }
+}

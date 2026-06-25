@@ -1,0 +1,142 @@
+{
+  "version": "0.1.0",
+  "description": "Synthetic, domain-neutral intent library for voice-agent routing.",
+  "intents": [
+    {
+      "id": "stop_contact",
+      "label": "User requests no further contact",
+      "priority": 120,
+      "keywords": [
+        "do not call",
+        "don't call",
+        "stop calling",
+        "remove me",
+        "unsubscribe",
+        "never contact",
+        "complaint",
+        "report you",
+        "别打",
+        "不要再联系",
+        "投诉"
+      ],
+      "default_next_node": "safe_stop"
+    },
+    {
+      "id": "privacy_concern",
+      "label": "User is concerned about privacy or data use",
+      "priority": 105,
+      "keywords": [
+        "why do you need",
+        "my data",
+        "privacy",
+        "personal information",
+        "not comfortable sharing",
+        "why are you asking",
+        "隐私",
+        "为什么问",
+        "不方便说"
+      ],
+      "default_next_node": "privacy_boundary"
+    },
+    {
+      "id": "identity_check",
+      "label": "User asks who the agent represents",
+      "priority": 95,
+      "keywords": [
+        "who are you",
+        "what company",
+        "are you official",
+        "is this legitimate",
+        "where are you calling from",
+        "你是谁",
+        "什么公司",
+        "正规吗"
+      ],
+      "default_next_node": "identity_explain"
+    },
+    {
+      "id": "price_or_cost",
+      "label": "User asks about price or cost",
+      "priority": 85,
+      "keywords": [
+        "price",
+        "cost",
+        "fee",
+        "how much",
+        "billing",
+        "费用",
+        "多少钱",
+        "收费"
+      ],
+      "default_next_node": "cost_boundary"
+    },
+    {
+      "id": "schedule_callback",
+      "label": "User wants to schedule a later callback",
+      "priority": 80,
+      "keywords": [
+        "call me later",
+        "tomorrow",
+        "next week",
+        "not a good time",
+        "schedule",
+        "晚点",
+        "明天",
+        "下周"
+      ],
+      "default_next_node": "schedule_callback"
+    },
+    {
+      "id": "handoff_request",
+      "label": "User asks for a human representative",
+      "priority": 78,
+      "keywords": [
+        "human",
+        "agent",
+        "representative",
+        "manager",
+        "talk to someone",
+        "人工",
+        "负责人",
+        "客户经理"
+      ],
+      "default_next_node": "human_handoff"
+    },
+    {
+      "id": "how_it_works",
+      "label": "User asks how the process works",
+      "priority": 70,
+      "keywords": [
+        "how does this work",
+        "process",
+        "steps",
+        "what happens next",
+        "流程",
+        "怎么操作",
+        "下一步"
+      ],
+      "default_next_node": "process_explain"
+    },
+    {
+      "id": "positive_interest",
+      "label": "User shows basic interest",
+      "priority": 50,
+      "keywords": [
+        "sounds good",
+        "tell me more",
+        "interested",
+        "yes",
+        "可以",
+        "了解一下"
+      ],
+      "default_next_node": "need_probe"
+    },
+    {
+      "id": "unknown",
+      "label": "Unknown or unsupported intent",
+      "priority": 0,
+      "keywords": [],
+      "default_next_node": "clarify_once"
+    }
+  ]
+}

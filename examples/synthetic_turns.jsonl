@@ -1,0 +1,7 @@
+{"text":"Do not call me again","expected_intent":"stop_contact","expected_node":"safe_stop"}
+{"text":"Who are you and what company is this","expected_intent":"identity_check","expected_node":"identity_explain"}
+{"text":"I am not comfortable sharing personal information","expected_intent":"privacy_concern","expected_node":"privacy_boundary"}
+{"text":"Can I talk to a human representative","expected_intent":"handoff_request","expected_node":"human_handoff"}
+{"text":"Call me tomorrow afternoon","expected_intent":"schedule_callback","expected_node":"schedule_callback"}
+{"text":"你们能帮我预约明天吗","expected_intent":"schedule_callback","expected_node":"schedule_callback"}
+{"text":"不要再联系我","expected_intent":"stop_contact","expected_node":"safe_stop"}

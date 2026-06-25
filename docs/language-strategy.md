@@ -1,0 +1,48 @@
+# Language Strategy
+
+The first public release is English-first.
+
+## Current Baseline
+
+- README and maintainer docs are written in English.
+- Default examples are mostly English, with a few synthetic non-English examples to prove the engine can handle multilingual fixtures.
+- The core engine is language-neutral: it reads keywords and response text from config files.
+- No production translation service is required.
+
+## Why English First
+
+English keeps the initial public repository easier for reviewers to inspect. It also avoids publishing private domain wording or local business phrasing from the original private workflow.
+
+## Future Language Packs
+
+Language support should be added as separate synthetic fixture packs:
+
+- `examples/packs/en.jsonl`
+- `examples/packs/zh.jsonl`
+- `examples/packs/es.jsonl`
+
+Each language pack should include:
+
+- synthetic user utterances
+- expected intent
+- expected node
+- risk label expectations when relevant
+- notes for cultural or wording differences
+
+## Configuration Direction
+
+A future update can add:
+
+```json
+{
+  "default_language": "en",
+  "enabled_languages": ["en"],
+  "fallback_language": "en"
+}
+```
+
+The first implementation should keep this simple. Avoid automatic translation in tests unless the translation provider is mocked.
+
+## Privacy Rules
+
+Do not translate or publish real transcripts. If a real conversation reveals a useful language gap, rewrite it into a synthetic example before adding it to a public language pack.

@@ -1,0 +1,29 @@
+{
+  "version": "example-0.1",
+  "description": "Synthetic candidate rules proposed from improvement queue review. These examples are not production policy.",
+  "candidates": [
+    {
+      "candidate_id": "candidate-identity-keyword-001",
+      "from_record_id": "example-0001",
+      "target_file": "configs/intents.json",
+      "proposed_change": {
+        "action": "add_keyword",
+        "intent_id": "identity_check",
+        "keywords": ["what team is this", "who is behind this"]
+      },
+      "review_status": "reviewing"
+    },
+    {
+      "candidate_id": "candidate-stop-contact-regression-001",
+      "from_record_id": "example-0002",
+      "target_file": "examples/synthetic_turns.jsonl",
+      "proposed_change": {
+        "action": "add_regression_case",
+        "text": "Please remove me from your list",
+        "expected_intent": "stop_contact",
+        "expected_node": "safe_stop"
+      },
+      "review_status": "approved"
+    }
+  ]
+}

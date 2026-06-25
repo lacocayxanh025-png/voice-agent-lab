@@ -1,0 +1,55 @@
+{
+  "version": "0.1.0",
+  "description": "Synthetic response templates for demo and regression testing.",
+  "responses": {
+    "safe_stop": {
+      "text": "Understood. I will stop this conversation and mark that you do not want further contact.",
+      "tone": "polite",
+      "risk_level": "high",
+      "terminal": true,
+      "stop_contact_required": true
+    },
+    "privacy_boundary": {
+      "text": "That is reasonable. We only need the minimum information required to route your request. You can skip anything you do not want to share.",
+      "tone": "calm",
+      "risk_level": "medium"
+    },
+    "identity_explain": {
+      "text": "I am a demo voice assistant for routing support requests. I can explain the process, schedule a callback, or hand you to a human.",
+      "tone": "calm",
+      "risk_level": "low"
+    },
+    "cost_boundary": {
+      "text": "Costs depend on the service plan. I can summarize the general pricing categories, but a human should confirm any final quote before you decide.",
+      "tone": "calm",
+      "risk_level": "medium",
+      "handoff_recommended": true
+    },
+    "schedule_callback": {
+      "text": "I can help schedule a callback. What day and time window works best for you?",
+      "tone": "polite",
+      "risk_level": "low"
+    },
+    "human_handoff": {
+      "text": "I can hand this to a human representative. Please share a safe callback window, or continue without sharing personal details.",
+      "tone": "polite",
+      "risk_level": "medium",
+      "handoff_required": true
+    },
+    "process_explain": {
+      "text": "The process is: understand your request, classify the intent, check whether it is safe to answer, then either respond, ask one clarifying question, or hand off.",
+      "tone": "calm",
+      "risk_level": "low"
+    },
+    "need_probe": {
+      "text": "Great. Are you mainly looking for support, scheduling, pricing, or a human follow-up?",
+      "tone": "calm",
+      "risk_level": "low"
+    },
+    "clarify_once": {
+      "text": "I want to make sure I route this correctly. Are you asking about pricing, scheduling, support, or a human handoff?",
+      "tone": "calm",
+      "risk_level": "medium"
+    }
+  }
+}

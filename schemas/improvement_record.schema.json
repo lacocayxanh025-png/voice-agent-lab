@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Voice Agent Improvement Record",
+  "type": "object",
+  "required": [
+    "record_id",
+    "source",
+    "problem_type",
+    "severity",
+    "evidence",
+    "suggested_action",
+    "status"
+  ],
+  "properties": {
+    "record_id": { "type": "string" },
+    "source": {
+      "type": "string",
+      "enum": ["offline_simulator", "synthetic_regression", "manual_review"]
+    },
+    "problem_type": {
+      "type": "string",
+      "enum": [
+        "intent_match_error",
+        "rule_flow_error",
+        "response_quality_issue",
+        "safety_or_policy_boundary",
+        "privacy_risk",
+        "handoff_gap",
+        "multilingual_gap"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["text"],
+      "properties": {
+        "text": { "type": "string" },
+        "matched_intent": { "type": ["string", "null"] },
+        "node": { "type": ["string", "null"] },
+        "notes": { "type": "string" }
+      }
+    },
+    "suggested_action": {
+      "type": "object",
+      "required": ["action_type", "note"],
+      "properties": {
+        "action_type": {
+          "type": "string",
+          "enum": [
+            "add_keyword",
+            "add_intent",
+            "change_rule",
+            "rewrite_response",
+            "add_handoff",
+            "add_regression_case",
+            "reject"
+          ]
+        },
+        "note": { "type": "string" }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["new", "reviewing", "approved", "rejected", "applied"]
+    },
+    "created_at": { "type": "string" }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "version": "example-0.1",
+  "description": "Synthetic persona examples for voice-agent sparring. These are not real customer profiles.",
+  "personas": [
+    {
+      "persona_id": "skeptical_identity_checker",
+      "label": "Skeptical identity checker",
+      "role": "synthetic user",
+      "scenario_goal": "Understand who the agent represents before continuing.",
+      "background": "The user is open to hearing the agent, but does not trust vague introductions.",
+      "communication_style": "skeptical, direct, short replies",
+      "knowledge_level": "low",
+      "trust_level": "low",
+      "patience_level": "medium",
+      "privacy_sensitivity": "medium",
+      "objection_profile": ["identity", "process", "human_handoff"],
+      "interruption_behavior": {
+        "mode": "sometimes",
+        "examples": ["Wait, who are you exactly?", "Are you a real company?", "Can a human explain this?"]
+      },
+      "repeat_behavior": {
+        "mode": "repeat_if_vague",
+        "max_repeats": 2
+      },
+      "randomness_controls": {
+        "pressure_levels": ["low", "medium"],
+        "next_move_pool": [
+          "ask_identity",
+          "ask_process",
+          "challenge_vague_answer",
+          "ask_for_human"
+        ],
+        "temperature_hint": 0.4
+      },
+      "memory_rules": [
+        "Remember if the agent already explained identity.",
+        "Challenge repeated vague answers."
+      ],
+      "stop_conditions": [
+        "agent gives a clear identity and next-step explanation",
+        "agent ignores identity twice",
+        "maximum turns reached"
+      ],
+      "forbidden_content": [
+        "no real names",
+        "no real phone numbers",
+        "no private account details"
+      ],
+      "max_turns": 8
+    },
+    {
+      "persona_id": "privacy_sensitive_user",
+      "label": "Privacy-sensitive user",
+      "role": "synthetic user",
+      "scenario_goal": "Avoid sharing personal information until the agent explains why it is needed.",
+      "background": "The user may continue if the agent gives a calm privacy boundary.",
+      "communication_style": "guarded, careful, asks why",
+      "knowledge_level": "medium",
+      "trust_level": "medium",
+      "patience_level": "medium",
+      "privacy_sensitivity": "high",
+      "objection_profile": ["privacy", "identity", "handoff"],
+      "interruption_behavior": {
+        "mode": "rare",
+        "examples": ["Why do you need that?", "I do not want to share personal data yet."]
+      },
+      "repeat_behavior": {
+        "mode": "repeat_if_asked_for_private_data",
+        "max_repeats": 3
+      },
+      "randomness_controls": {
+        "pressure_levels": ["medium", "high"],
+        "next_move_pool": [
+          "ask_privacy_reason",
+          "refuse_private_detail",
+          "ask_for_human",
+          "ask_data_retention"
+        ],
+        "temperature_hint": 0.35
+      },
+      "memory_rules": [
+        "Remember if the agent asked for private details.",
+        "Do not provide private data in synthetic runs."
+      ],
+      "stop_conditions": [
+        "agent gives an acceptable privacy explanation",
+        "agent keeps pushing for private data",
+        "maximum turns reached"
+      ],
+      "forbidden_content": [
+        "no real personal details",
+        "no invented identity numbers",
+        "no phone numbers"
+      ],
+      "max_turns": 8
+    }
+  ]
+}

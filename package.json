@@ -1,0 +1,28 @@
+{
+  "name": "voice-agent-lab",
+  "version": "0.1.0",
+  "description": "A privacy-first lab for testing voice-agent intent routing, escalation rules, and improvement queues with synthetic conversations.",
+  "private": false,
+  "type": "commonjs",
+  "main": "src/engine.js",
+  "scripts": {
+    "simulate": "node src/simulator.js",
+    "queue:export": "node scripts/export_improvement_queue.js",
+    "adapter:check": "node tests/voice_adapter.test.js",
+    "test": "node tests/engine.test.js && node tests/voice_adapter.test.js",
+    "privacy:check": "node scripts/check_no_sensitive_terms.js"
+  },
+  "keywords": [
+    "voice-agent",
+    "conversation-design",
+    "intent-routing",
+    "contact-center",
+    "synthetic-data",
+    "codex"
+  ],
+  "author": "F",
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
