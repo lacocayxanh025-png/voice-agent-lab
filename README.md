@@ -1,6 +1,6 @@
 # Voice Agent Lab
 
-Voice Agent Lab is a privacy-first toolkit for testing voice-agent conversation logic before connecting to real calls or production contact-center systems.
+Voice Agent Lab is a privacy-first training and sparring toolkit for teams that already build voice agents, intelligent phone workflows, or customer-support bots. It helps them test and improve the agent before putting it in front of real users, real calls, or production contact-center systems.
 
 It helps teams design and review:
 
