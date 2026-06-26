@@ -1,5 +1,9 @@
 # Voice Agent Lab
 
+[![CI](https://github.com/lacocayxanh025-png/voice-agent-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/lacocayxanh025-png/voice-agent-lab/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/lacocayxanh025-png/voice-agent-lab)](https://github.com/lacocayxanh025-png/voice-agent-lab/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 Voice Agent Lab is a privacy-first training and sparring toolkit for teams that already build voice agents, intelligent phone workflows, or customer-support bots. It helps them test and improve the agent before putting it in front of real users, real calls, or production contact-center systems.
 
 It helps teams design and review:

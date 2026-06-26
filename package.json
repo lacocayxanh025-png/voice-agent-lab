@@ -1,6 +1,6 @@
 {
   "name": "voice-agent-lab",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A privacy-first lab for testing voice-agent intent routing, escalation rules, and improvement queues with synthetic conversations.",
   "private": false,
   "type": "commonjs",
@@ -21,6 +21,14 @@
     "codex"
   ],
   "author": "F",
+  "homepage": "https://github.com/lacocayxanh025-png/voice-agent-lab#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lacocayxanh025-png/voice-agent-lab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lacocayxanh025-png/voice-agent-lab/issues"
+  },
   "engines": {
     "node": ">=20"
   },
