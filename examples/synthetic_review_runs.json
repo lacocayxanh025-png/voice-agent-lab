@@ -1,0 +1,250 @@
+{
+  "version": "0.2.0",
+  "description": "Synthetic review-console runs. These examples are artificial and contain no real call data.",
+  "generated_at": "2026-01-01T00:00:00.000Z",
+  "runs": [
+    {
+      "run_id": "run-baseline-routing-001",
+      "label": "Baseline routing smoke test",
+      "scenario": "Mixed support and outbound-practice utterances",
+      "persona": "Synthetic mixed caller",
+      "status": "needs_review",
+      "created_at": "2026-01-01T09:00:00.000Z",
+      "summary": {
+        "total_cases": 5,
+        "passed": 3,
+        "needs_review": 2,
+        "high_risk": 1,
+        "handoff_required": 1
+      },
+      "cases": [
+        {
+          "case_id": "case-stop-contact-001",
+          "turn_index": 1,
+          "input_text": "Do not call me again",
+          "expected_intent": "stop_contact",
+          "matched_intent": "stop_contact",
+          "next_node": "safe_stop",
+          "risk_level": "high",
+          "status": "needs_review",
+          "issue_tags": ["stop-contact", "safety-boundary"],
+          "handoff_required": false,
+          "handoff_recommended": false,
+          "should_stop_contact": true,
+          "response_text": "Understood. I will stop this conversation and mark that you do not want further contact.",
+          "improvement_hint": {
+            "problem_type": "safety_or_policy_boundary",
+            "suggested_action": "review_escalation_rule",
+            "note": "High-risk stop-contact behavior should remain covered by regression tests."
+          }
+        },
+        {
+          "case_id": "case-identity-001",
+          "turn_index": 2,
+          "input_text": "Who are you and what company is this",
+          "expected_intent": "identity_check",
+          "matched_intent": "identity_check",
+          "next_node": "identity_explain",
+          "risk_level": "low",
+          "status": "passed",
+          "issue_tags": ["identity"],
+          "handoff_required": false,
+          "handoff_recommended": false,
+          "should_stop_contact": false,
+          "response_text": "I am a demo voice assistant for routing support requests. I can explain the process, schedule a callback, or hand you to a human.",
+          "improvement_hint": null
+        },
+        {
+          "case_id": "case-privacy-001",
+          "turn_index": 3,
+          "input_text": "I am not comfortable sharing personal information",
+          "expected_intent": "privacy_concern",
+          "matched_intent": "privacy_concern",
+          "next_node": "privacy_boundary",
+          "risk_level": "medium",
+          "status": "passed",
+          "issue_tags": ["privacy"],
+          "handoff_required": false,
+          "handoff_recommended": false,
+          "should_stop_contact": false,
+          "response_text": "That is reasonable. We only need the minimum information required to route your request. You can skip anything you do not want to share.",
+          "improvement_hint": null
+        },
+        {
+          "case_id": "case-handoff-001",
+          "turn_index": 4,
+          "input_text": "Can I talk to a human representative",
+          "expected_intent": "handoff_request",
+          "matched_intent": "handoff_request",
+          "next_node": "human_handoff",
+          "risk_level": "medium",
+          "status": "needs_review",
+          "issue_tags": ["handoff", "callback-window"],
+          "handoff_required": true,
+          "handoff_recommended": false,
+          "should_stop_contact": false,
+          "response_text": "I can hand this to a human representative. Please share a safe callback window, or continue without sharing personal details.",
+          "improvement_hint": {
+            "problem_type": "handoff_policy_review",
+            "suggested_action": "confirm_handoff_copy",
+            "note": "Check whether the handoff prompt asks only for non-sensitive callback timing."
+          }
+        },
+        {
+          "case_id": "case-schedule-001",
+          "turn_index": 5,
+          "input_text": "Call me tomorrow afternoon",
+          "expected_intent": "schedule_callback",
+          "matched_intent": "schedule_callback",
+          "next_node": "schedule_callback",
+          "risk_level": "low",
+          "status": "passed",
+          "issue_tags": ["scheduling"],
+          "handoff_required": false,
+          "handoff_recommended": false,
+          "should_stop_contact": false,
+          "response_text": "I can help schedule a callback. What day and time window works best for you?",
+          "improvement_hint": null
+        }
+      ]
+    },
+    {
+      "run_id": "run-persona-pressure-001",
+      "label": "Privacy-sensitive persona pressure test",
+      "scenario": "Skeptical caller asks identity, privacy, and price questions",
+      "persona": "Privacy-sensitive caller",
+      "status": "passed",
+      "created_at": "2026-01-01T10:30:00.000Z",
+      "summary": {
+        "total_cases": 4,
+        "passed": 4,
+        "needs_review": 0,
+        "high_risk": 0,
+        "handoff_required": 0
+      },
+      "cases": [
+        {
+          "case_id": "case-persona-identity-001",
+          "turn_index": 1,
+          "input_text": "Is this legitimate or are you a bot",
+          "expected_intent": "identity_check",
+          "matched_intent": "identity_check",
+          "next_node": "identity_explain",
+          "risk_level": "low",
+          "status": "passed",
+          "issue_tags": ["identity", "bot-disclosure"],
+          "handoff_required": false,
+          "handoff_recommended": false,
+          "should_stop_contact": false,
+          "response_text": "I am a demo voice assistant for routing support requests. I can explain the process, schedule a callback, or hand you to a human.",
+          "improvement_hint": null
+        },
+        {
+          "case_id": "case-persona-privacy-001",
+          "turn_index": 2,
+          "input_text": "Why do you need my data",
+          "expected_intent": "privacy_concern",
+          "matched_intent": "privacy_concern",
+          "next_node": "privacy_boundary",
+          "risk_level": "medium",
+          "status": "passed",
+          "issue_tags": ["privacy", "minimum-data"],
+          "handoff_required": false,
+          "handoff_recommended": false,
+          "should_stop_contact": false,
+          "response_text": "That is reasonable. We only need the minimum information required to route your request. You can skip anything you do not want to share.",
+          "improvement_hint": null
+        },
+        {
+          "case_id": "case-persona-cost-001",
+          "turn_index": 3,
+          "input_text": "How much does this cost",
+          "expected_intent": "price_or_cost",
+          "matched_intent": "price_or_cost",
+          "next_node": "cost_boundary",
+          "risk_level": "medium",
+          "status": "passed",
+          "issue_tags": ["pricing", "quote-boundary"],
+          "handoff_required": false,
+          "handoff_recommended": true,
+          "should_stop_contact": false,
+          "response_text": "Costs depend on the service plan. I can summarize the general pricing categories, but a human should confirm any final quote before you decide.",
+          "improvement_hint": null
+        },
+        {
+          "case_id": "case-persona-process-001",
+          "turn_index": 4,
+          "input_text": "What happens next",
+          "expected_intent": "how_it_works",
+          "matched_intent": "how_it_works",
+          "next_node": "process_explain",
+          "risk_level": "low",
+          "status": "passed",
+          "issue_tags": ["process"],
+          "handoff_required": false,
+          "handoff_recommended": false,
+          "should_stop_contact": false,
+          "response_text": "The process is: understand your request, classify the intent, check whether it is safe to answer, then either respond, ask one clarifying question, or hand off.",
+          "improvement_hint": null
+        }
+      ]
+    },
+    {
+      "run_id": "run-unknown-input-001",
+      "label": "Unknown-turn review queue",
+      "scenario": "Unsupported synthetic utterances",
+      "persona": "Synthetic noisy caller",
+      "status": "needs_review",
+      "created_at": "2026-01-01T11:45:00.000Z",
+      "summary": {
+        "total_cases": 2,
+        "passed": 0,
+        "needs_review": 2,
+        "high_risk": 0,
+        "handoff_required": 0
+      },
+      "cases": [
+        {
+          "case_id": "case-unknown-001",
+          "turn_index": 1,
+          "input_text": "blue triangle calendar warehouse",
+          "expected_intent": "unknown",
+          "matched_intent": "unknown",
+          "next_node": "clarify_once",
+          "risk_level": "medium",
+          "status": "needs_review",
+          "issue_tags": ["unknown", "candidate-rule"],
+          "handoff_required": false,
+          "handoff_recommended": false,
+          "should_stop_contact": false,
+          "response_text": "I want to make sure I route this correctly. Are you asking about pricing, scheduling, support, or a human handoff?",
+          "improvement_hint": {
+            "problem_type": "intent_match_error",
+            "suggested_action": "add_intent_or_keyword",
+            "note": "No intent matched this utterance. Decide whether it belongs to an existing intent or should remain unsupported."
+          }
+        },
+        {
+          "case_id": "case-unknown-002",
+          "turn_index": 2,
+          "input_text": "I need someone to explain the next form",
+          "expected_intent": "unknown",
+          "matched_intent": "unknown",
+          "next_node": "clarify_once",
+          "risk_level": "medium",
+          "status": "needs_review",
+          "issue_tags": ["unknown", "process-gap"],
+          "handoff_required": false,
+          "handoff_recommended": false,
+          "should_stop_contact": false,
+          "response_text": "I want to make sure I route this correctly. Are you asking about pricing, scheduling, support, or a human handoff?",
+          "improvement_hint": {
+            "problem_type": "intent_match_error",
+            "suggested_action": "add_intent_or_keyword",
+            "note": "Review whether this should map to process explanation or human handoff."
+          }
+        }
+      ]
+    }
+  ]
+}
