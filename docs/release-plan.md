@@ -16,8 +16,10 @@ Goal: publish a small, safe baseline repository.
 
 Goal: make completed synthetic runs easier for non-technical reviewers.
 
-- Config-driven browser reviewer console.
-- Run list, case list, detail view, issue tags, and improvement queue link.
+- Static browser reviewer console.
+- Synthetic review run examples.
+- Run list, case list, detail view, issue tags, risk labels, handoff flags, and improvement hints.
+- Review data structure checks.
 - Synthetic data only.
 
 ## v0.3.0

@@ -2,9 +2,9 @@
 
 This roadmap explains what is included now and what should be added later.
 
-## Current: v0.1 Baseline
+## Current: v0.2 Review Console
 
-The current package is a safe public baseline:
+The current package is a safe public baseline with a static synthetic review console:
 
 - deterministic text engine
 - provider-neutral voice adapter shape
@@ -13,23 +13,14 @@ The current package is a safe public baseline:
 - improvement queue examples
 - candidate rule examples
 - privacy scanner
-- basic tests
+- basic tests and review data checks
 - browser demo
-
-This is enough for maintainers to test text routing and connect their own ASR/TTS or multimodal speech stack locally.
-
-## Next: v0.2 Review Console
-
-Add a config-driven review console for completed synthetic runs:
-
-- run list
-- case list
-- conversation detail
-- issue tags
-- improvement queue link
+- review console with run list, case list, detail view, issue tags, risk labels, handoff flags, and improvement hints
 - no real audio or transcript data
 
-## Then: v0.3 Persona Sparring
+This is enough for maintainers to test text routing, inspect completed synthetic runs, and connect their own ASR/TTS or multimodal speech stack locally.
+
+## Next: v0.3 Persona Sparring
 
 Add the synthetic user side of the loop:
 

@@ -53,9 +53,12 @@ node src/simulator.js --text "I want to cancel my account"
 node src/simulator.js --text "Do not call me again"
 node src/simulator.js --text "你们能帮我预约明天吗"
 npm run queue:export
+python -m http.server 8080
 ```
 
 You can also open `public/demo.html` for a local reviewer demo. The page includes optional browser voice input and browser speech output when the current browser supports Web Speech APIs. This is a local convenience layer, not a production ASR/TTS integration.
+
+The v0.2 review console is available at `public/review-console.html` when served from the repository root. It loads `examples/synthetic_review_runs.json` and lets maintainers inspect synthetic runs, cases, risk labels, handoff flags, and improvement hints. See [docs/review-console.md](docs/review-console.md).
 
 Example output:
 
@@ -105,6 +108,7 @@ docs/
   improvement-loop.md
   language-strategy.md
   persona-sparring.md
+  review-console.md
   issue-drafts.md
   pr-sequence.md
   release-plan.md
@@ -116,8 +120,10 @@ examples/
   improvement_queue.jsonl   Synthetic review queue examples
   candidate_rules.json      Example proposed rule changes
   personas.json             Synthetic persona examples
+  synthetic_review_runs.json Synthetic review-console examples
 public/
   demo.html                 Small static reviewer demo
+  review-console.html       Static synthetic run review console
 schemas/
   improvement_record.schema.json
 scripts/
