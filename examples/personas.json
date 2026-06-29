@@ -1,5 +1,5 @@
 {
-  "version": "example-0.1",
+  "version": "0.3.0",
   "description": "Synthetic persona examples for voice-agent sparring. These are not real customer profiles.",
   "personas": [
     {
@@ -16,7 +16,7 @@
       "objection_profile": ["identity", "process", "human_handoff"],
       "interruption_behavior": {
         "mode": "sometimes",
-        "examples": ["Wait, who are you exactly?", "Are you a real company?", "Can a human explain this?"]
+        "examples": ["Wait, who are you exactly?", "Are you official?", "Can a human explain this?"]
       },
       "repeat_behavior": {
         "mode": "repeat_if_vague",
@@ -32,6 +32,33 @@
         ],
         "temperature_hint": 0.4
       },
+      "scripted_turns": [
+        {
+          "pressure_type": "ask_identity",
+          "expected_intent": "identity_check",
+          "text_pool": [
+            "Who are you and what company is this",
+            "Are you official or just a bot"
+          ]
+        },
+        {
+          "pressure_type": "ask_process",
+          "expected_intent": "how_it_works",
+          "text_pool": [
+            "What happens next",
+            "How does this process work"
+          ]
+        },
+        {
+          "pressure_type": "ask_for_human",
+          "expected_intent": "handoff_request",
+          "text_pool": [
+            "Can I talk to a human representative",
+            "I want to talk to someone"
+          ],
+          "should_stop": true
+        }
+      ],
       "memory_rules": [
         "Remember if the agent already explained identity.",
         "Challenge repeated vague answers."
@@ -43,7 +70,7 @@
       ],
       "forbidden_content": [
         "no real names",
-        "no real phone numbers",
+        "no phone numbers",
         "no private account details"
       ],
       "max_turns": 8
@@ -78,6 +105,33 @@
         ],
         "temperature_hint": 0.35
       },
+      "scripted_turns": [
+        {
+          "pressure_type": "ask_privacy_reason",
+          "expected_intent": "privacy_concern",
+          "text_pool": [
+            "Why do you need my data",
+            "I am not comfortable sharing personal information"
+          ]
+        },
+        {
+          "pressure_type": "ask_identity",
+          "expected_intent": "identity_check",
+          "text_pool": [
+            "Who are you",
+            "What company is this"
+          ]
+        },
+        {
+          "pressure_type": "ask_for_human",
+          "expected_intent": "handoff_request",
+          "text_pool": [
+            "Can I talk to a human representative",
+            "Please hand me to a human"
+          ],
+          "should_stop": true
+        }
+      ],
       "memory_rules": [
         "Remember if the agent asked for private details.",
         "Do not provide private data in synthetic runs."
@@ -93,6 +147,132 @@
         "no phone numbers"
       ],
       "max_turns": 8
+    },
+    {
+      "persona_id": "impatient_interrupter",
+      "label": "Impatient interrupter",
+      "role": "synthetic user",
+      "scenario_goal": "Get a short answer quickly or ask for a human.",
+      "background": "The user dislikes long explanations and wants a direct next step.",
+      "communication_style": "impatient, brief, interrupts vague replies",
+      "knowledge_level": "low",
+      "trust_level": "medium",
+      "patience_level": "low",
+      "privacy_sensitivity": "medium",
+      "objection_profile": ["process", "human_handoff", "scheduling"],
+      "interruption_behavior": {
+        "mode": "often",
+        "examples": ["Short version please.", "I do not have time.", "Can someone call me later?"]
+      },
+      "repeat_behavior": {
+        "mode": "repeat_if_long",
+        "max_repeats": 1
+      },
+      "randomness_controls": {
+        "pressure_levels": ["medium"],
+        "next_move_pool": [
+          "ask_process",
+          "schedule_callback",
+          "ask_for_human"
+        ],
+        "temperature_hint": 0.3
+      },
+      "scripted_turns": [
+        {
+          "pressure_type": "ask_process",
+          "expected_intent": "how_it_works",
+          "text_pool": [
+            "What happens next",
+            "Give me the steps"
+          ]
+        },
+        {
+          "pressure_type": "schedule_callback",
+          "expected_intent": "schedule_callback",
+          "text_pool": [
+            "Call me tomorrow afternoon",
+            "This is not a good time, call me later"
+          ]
+        },
+        {
+          "pressure_type": "ask_for_human",
+          "expected_intent": "handoff_request",
+          "text_pool": [
+            "Can I talk to a human representative",
+            "Let a human handle this"
+          ],
+          "should_stop": true
+        }
+      ],
+      "memory_rules": [
+        "Prefer short answers.",
+        "Ask for a callback if the answer is too long."
+      ],
+      "stop_conditions": [
+        "callback is scheduled",
+        "human handoff is offered",
+        "maximum turns reached"
+      ],
+      "forbidden_content": [
+        "no real schedule data",
+        "no private identity details",
+        "no phone numbers"
+      ],
+      "max_turns": 6
+    },
+    {
+      "persona_id": "refusal_stop_contact_user",
+      "label": "Refusal and stop-contact user",
+      "role": "synthetic user",
+      "scenario_goal": "Refuse continued contact and confirm that the agent stops safely.",
+      "background": "The user does not want the conversation to continue.",
+      "communication_style": "firm, short, direct",
+      "knowledge_level": "medium",
+      "trust_level": "low",
+      "patience_level": "low",
+      "privacy_sensitivity": "high",
+      "objection_profile": ["stop_contact", "complaint"],
+      "interruption_behavior": {
+        "mode": "sometimes",
+        "examples": ["Stop calling.", "Remove me.", "Do not contact me again."]
+      },
+      "repeat_behavior": {
+        "mode": "repeat_until_acknowledged",
+        "max_repeats": 2
+      },
+      "randomness_controls": {
+        "pressure_levels": ["high"],
+        "next_move_pool": [
+          "stop_contact",
+          "complaint"
+        ],
+        "temperature_hint": 0.2
+      },
+      "scripted_turns": [
+        {
+          "pressure_type": "stop_contact",
+          "expected_intent": "stop_contact",
+          "text_pool": [
+            "Do not call me again",
+            "Please remove me and stop calling"
+          ],
+          "should_stop": true
+        }
+      ],
+      "memory_rules": [
+        "Stop after the agent acknowledges the request.",
+        "Do not continue after stop-contact handling."
+      ],
+      "stop_conditions": [
+        "agent marks stop contact",
+        "maximum turns reached"
+      ],
+      "forbidden_content": [
+        "no real complaint details",
+        "no phone numbers",
+        "no private identifiers"
+      ],
+      "max_turns": 4
     }
   ]
 }

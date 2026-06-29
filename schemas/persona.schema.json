@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lacocayxanh025-png/voice-agent-lab/schemas/persona.schema.json",
+  "title": "Voice Agent Lab Persona",
+  "type": "object",
+  "required": [
+    "persona_id",
+    "label",
+    "role",
+    "scenario_goal",
+    "communication_style",
+    "trust_level",
+    "privacy_sensitivity",
+    "objection_profile",
+    "randomness_controls",
+    "memory_rules",
+    "stop_conditions",
+    "forbidden_content",
+    "max_turns",
+    "scripted_turns"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "persona_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_\\-]+$"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 3
+    },
+    "role": {
+      "type": "string"
+    },
+    "scenario_goal": {
+      "type": "string"
+    },
+    "communication_style": {
+      "type": "string"
+    },
+    "trust_level": {
+      "enum": ["low", "medium", "high"]
+    },
+    "privacy_sensitivity": {
+      "enum": ["low", "medium", "high"]
+    },
+    "objection_profile": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "randomness_controls": {
+      "type": "object",
+      "required": ["next_move_pool"],
+      "properties": {
+        "pressure_levels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "next_move_pool": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "temperature_hint": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "scripted_turns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["pressure_type", "expected_intent"],
+        "properties": {
+          "pressure_type": {
+            "type": "string"
+          },
+          "expected_intent": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "text_pool": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "should_stop": {
+            "type": "boolean"
+          }
+        },
+        "anyOf": [
+          { "required": ["text"] },
+          { "required": ["text_pool"] }
+        ]
+      }
+    }
+  }
+}

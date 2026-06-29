@@ -26,8 +26,8 @@ Goal: make completed synthetic runs easier for non-technical reviewers.
 
 Goal: add the synthetic user side of the test loop.
 
-- Persona sparring API shape.
-- Scripted persona examples.
+- Persona sparring API shape and deterministic scripted runner.
+- Scripted persona examples with bounded text pools.
 - Persona design dimensions and bounded randomness controls.
 - Documentation for connecting a user-provided LLM or scripted simulator.
 - Privacy rules for keeping real provider logs and customer material out of the repository.
