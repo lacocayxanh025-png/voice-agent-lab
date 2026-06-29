@@ -75,6 +75,24 @@ This keeps tests varied while still making review results explainable.
 
 See `examples/personas.json` for a synthetic persona pack. These are examples only, not production customer profiles.
 
+## Scripted Runner
+
+The v0.3 package includes a deterministic scripted runner:
+
+```bash
+npm run persona:run -- --persona skeptical_identity_checker --seed demo
+```
+
+The runner:
+
+- loads `examples/personas.json`
+- chooses bounded text from each persona's scripted turn pools
+- sends each synthetic persona turn through `simulateTurn`
+- returns review-console-compatible cases
+- stops when the script ends, the persona stops, or the engine reaches a terminal response
+
+The seed makes the run repeatable for tests and pull request review.
+
 ## API Shape
 
 The public repository should not include a real provider key or a real persona model endpoint. A maintainer can connect any LLM or scripted simulator behind this neutral interface:
@@ -106,6 +124,8 @@ persona turn
   -> repeat until done
 ```
 
+The included `src/persona_sparring.js` implements the same shape without external calls.
+
 ## What To Configure
 
 Keep persona settings synthetic and reviewable. A maintainer should be able to explain why each persona exists and which behavior it is testing.
@@ -125,7 +145,7 @@ If a real test finds a useful behavior gap, rewrite it into a synthetic persona 
 
 ## Release Position
 
-Persona Sparring should come after the review console baseline:
+Persona Sparring now sits after the review console baseline:
 
 1. Core engine and provider-neutral voice adapter.
 2. Review console for completed synthetic runs.

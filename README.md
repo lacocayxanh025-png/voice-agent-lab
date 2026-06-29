@@ -52,6 +52,7 @@ npm run privacy:check
 node src/simulator.js --text "I want to cancel my account"
 node src/simulator.js --text "Do not call me again"
 node src/simulator.js --text "你们能帮我预约明天吗"
+npm run persona:run -- --persona skeptical_identity_checker --seed demo
 npm run queue:export
 python -m http.server 8080
 ```
@@ -126,15 +127,20 @@ public/
   review-console.html       Static synthetic run review console
 schemas/
   improvement_record.schema.json
+  persona.schema.json
 scripts/
   check_no_sensitive_terms.js
   export_improvement_queue.js
 src/
   adapters/voice_adapter.js Provider-neutral voice adapter shape
   engine.js                 Core matching and routing engine
+  persona_sparring.js       Scripted persona sparring runner
+  persona_runner.js         CLI wrapper for persona sparring
   simulator.js              CLI wrapper
 tests/
   engine.test.js
+  persona_sparring.test.js
+  review_data.test.js
   voice_adapter.test.js
 CONTRIBUTING.md
 SECURITY.md
@@ -190,6 +196,14 @@ See [docs/persona-sparring.md](docs/persona-sparring.md) for the neutral API sha
 
 A useful sparring persona should define more than a name. The docs cover goal, role, background, communication style, trust level, patience level, privacy sensitivity, objection profile, interruption behavior, repeat behavior, bounded randomness, memory rules, stop conditions, and forbidden content. See `examples/personas.json` for a synthetic example pack.
 
+The v0.3 scripted sparring runner is available through:
+
+```bash
+npm run persona:run -- --persona skeptical_identity_checker --seed demo
+```
+
+It produces synthetic review cases by running persona turns through the local routing engine. It does not call an external provider.
+
 ## Language Strategy
 
 The first public release is English-first. The engine itself is language-neutral because intents, keywords, responses, and examples live in config files. Future updates should add separate synthetic language packs instead of mixing private local phrasing into the baseline repository.
@@ -233,8 +247,6 @@ See [docs/codex-oss-application.md](docs/codex-oss-application.md) for a draft a
 
 ## Roadmap
 
-- Add a config-driven review console for completed synthetic runs.
-- Add persona sparring APIs and scripted persona examples.
 - Add an improvement workbench that turns review findings into candidate rules.
 - Add JSON schema validation without requiring runtime dependencies.
 - Add English fixture expansion, then optional multilingual and multi-scenario test packs.

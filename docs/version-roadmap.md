@@ -2,9 +2,9 @@
 
 This roadmap explains what is included now and what should be added later.
 
-## Current: v0.2 Review Console
+## Current: v0.3 Persona Sparring
 
-The current package is a safe public baseline with a static synthetic review console:
+The current package is a safe public baseline with a static synthetic review console and scripted persona sparring:
 
 - deterministic text engine
 - provider-neutral voice adapter shape
@@ -16,21 +16,15 @@ The current package is a safe public baseline with a static synthetic review con
 - basic tests and review data checks
 - browser demo
 - review console with run list, case list, detail view, issue tags, risk labels, handoff flags, and improvement hints
-- no real audio or transcript data
-
-This is enough for maintainers to test text routing, inspect completed synthetic runs, and connect their own ASR/TTS or multimodal speech stack locally.
-
-## Next: v0.3 Persona Sparring
-
-Add the synthetic user side of the loop:
-
 - persona schema
 - scripted persona examples
+- deterministic local runner for scripted personas
 - bounded randomness controls
-- local-only provider hook for users who want to connect their own LLM
-- tests with no external calls
+- no real audio or transcript data
 
-## Then: v0.4 Improvement Workbench
+This is enough for maintainers to test text routing, inspect completed synthetic runs, run scripted persona pressure tests, and connect their own ASR/TTS or multimodal speech stack locally.
+
+## Next: v0.4 Improvement Workbench
 
 Turn review findings into candidate changes:
 
