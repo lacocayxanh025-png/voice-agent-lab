@@ -36,7 +36,8 @@ Goal: add the synthetic user side of the test loop.
 
 Goal: turn review findings into proposed changes.
 
-- Improvement workbench.
+- Static improvement workbench.
+- Candidate rule generation CLI.
 - Candidate intent, keyword, response, handoff, and regression-case outputs.
 - Exportable candidate rule pool.
 

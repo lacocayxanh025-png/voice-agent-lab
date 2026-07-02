@@ -2,9 +2,9 @@
 
 This roadmap explains what is included now and what should be added later.
 
-## Current: v0.3 Persona Sparring
+## Current: v0.4 Improvement Workbench
 
-The current package is a safe public baseline with a static synthetic review console and scripted persona sparring:
+The current package is a safe public baseline with a static synthetic review console, scripted persona sparring, and an improvement workbench:
 
 - deterministic text engine
 - provider-neutral voice adapter shape
@@ -20,21 +20,13 @@ The current package is a safe public baseline with a static synthetic review con
 - scripted persona examples
 - deterministic local runner for scripted personas
 - bounded randomness controls
+- improvement workbench for candidate intent, keyword, response, handoff, and regression-case changes
+- candidate rule generation CLI
 - no real audio or transcript data
 
-This is enough for maintainers to test text routing, inspect completed synthetic runs, run scripted persona pressure tests, and connect their own ASR/TTS or multimodal speech stack locally.
+This is enough for maintainers to test text routing, inspect completed synthetic runs, run scripted persona pressure tests, convert review findings into candidate rules, and connect their own ASR/TTS or multimodal speech stack locally.
 
-## Next: v0.4 Improvement Workbench
-
-Turn review findings into candidate changes:
-
-- candidate intent
-- candidate keyword
-- candidate response rewrite
-- candidate handoff rule
-- candidate regression case
-
-## Later: v0.5 Validation And Language Packs
+## Next: v0.5 Validation And Language Packs
 
 Improve maintainability and coverage:
 

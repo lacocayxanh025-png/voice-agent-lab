@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voice Agent Lab Improvement Workbench</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fa;
+      --panel: #ffffff;
+      --panel-soft: #f9fafb;
+      --text: #17202e;
+      --muted: #667085;
+      --line: #d9e0ea;
+      --blue: #1d5fd1;
+      --blue-soft: #eaf1ff;
+      --green: #13795b;
+      --green-soft: #e7f6ef;
+      --amber: #a16207;
+      --amber-soft: #fff7df;
+      --red: #b42318;
+      --red-soft: #fff0ee;
+      --ink: #111827;
+      --radius: 8px;
+      --shadow: 0 16px 44px rgba(17, 24, 39, 0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #fbfcfe 0, var(--bg) 280px), var(--bg);
+      color: var(--text);
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    .topbar {
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .top-actions,
+    .tag-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .top-actions {
+      justify-content: flex-end;
+    }
+
+    .pill,
+    .badge {
+      min-height: 26px;
+      padding: 4px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: #344054;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .badge {
+      min-height: 22px;
+      font-size: 11px;
+    }
+
+    .badge.good {
+      color: var(--green);
+      background: var(--green-soft);
+      border-color: #b7e4cd;
+    }
+
+    .badge.warn {
+      color: var(--amber);
+      background: var(--amber-soft);
+      border-color: #f4dd9a;
+    }
+
+    .badge.danger {
+      color: var(--red);
+      background: var(--red-soft);
+      border-color: #f3b5ae;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--green);
+      flex: 0 0 auto;
+    }
+
+    .main {
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 310px minmax(0, 1fr) 380px;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel-header {
+      padding: 14px 14px 11px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .panel-note {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .panel-body {
+      padding: 14px;
+    }
+
+    .filters {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      color: #344054;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--text);
+      padding: 8px 10px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    button:focus-visible {
+      border-color: #7aa7ef;
+      box-shadow: 0 0 0 3px rgba(29, 95, 209, 0.14);
+    }
+
+    .record-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .record-btn {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--text);
+      text-align: left;
+      padding: 11px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .record-btn:hover,
+    .record-btn.active {
+      border-color: #8fb2ef;
+      background: var(--blue-soft);
+    }
+
+    .record-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .record-title {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .record-meta,
+    .small {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .workspace {
+      display: grid;
+      gap: 16px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .metric {
+      min-height: 74px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+    }
+
+    .metric-value {
+      font-size: 23px;
+      font-weight: 850;
+      line-height: 1.1;
+    }
+
+    .metric-label {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .action-btn {
+      min-height: 48px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: #344054;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .action-btn:hover,
+    .action-btn.active {
+      border-color: #8fb2ef;
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .evidence,
+    .preview,
+    .empty {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 12px;
+      background: var(--panel-soft);
+      color: #283548;
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .preview {
+      background: #101828;
+      color: #e6edf7;
+      overflow: auto;
+      max-height: 440px;
+      white-space: pre;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+    }
+
+    .empty {
+      color: var(--muted);
+      background: #fff;
+      border-style: dashed;
+    }
+
+    .detail-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .kv {
+      display: grid;
+      grid-template-columns: 118px minmax(0, 1fr);
+      gap: 8px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .kv:last-child {
+      border-bottom: 0;
+    }
+
+    .key {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .value {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 1140px) {
+      .main {
+        grid-template-columns: 300px minmax(0, 1fr);
+      }
+
+      .inspector {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .topbar-inner,
+      .main {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .topbar-inner,
+      .main {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions {
+        justify-content: flex-start;
+      }
+
+      .metrics,
+      .action-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .kv {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">VL</div>
+          <div>
+            <h1>Improvement Workbench</h1>
+            <p class="subtitle">Turn synthetic review findings into candidate rule changes without touching production configs.</p>
+          </div>
+        </div>
+        <div class="top-actions" aria-label="Workbench status">
+          <span class="pill"><span class="dot"></span> Synthetic queue</span>
+          <span class="pill">Preview only</span>
+          <span class="pill">v0.4.0</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <aside class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Improvement Queue</h2>
+          <p class="panel-note">Select a synthetic review finding and classify the next action.</p>
+        </div>
+        <div class="panel-body">
+          <div class="filters">
+            <div class="field">
+              <label for="severity-filter">Severity</label>
+              <select id="severity-filter" autocomplete="off">
+                <option value="all">All severities</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="record-search">Search</label>
+              <input id="record-search" type="search" placeholder="Search findings" autocomplete="off">
+            </div>
+          </div>
+          <div id="record-list" class="record-list"></div>
+          <p class="footer-note">The page reads local synthetic examples only. It does not upload data or write configs.</p>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <section class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Queue Summary</h2>
+            <p class="panel-note">Counts are computed from the loaded synthetic queue.</p>
+          </div>
+          <div class="panel-body">
+            <div class="metrics">
+              <div class="metric">
+                <div id="metric-total" class="metric-value">0</div>
+                <div class="metric-label">Records</div>
+              </div>
+              <div class="metric">
+                <div id="metric-high" class="metric-value">0</div>
+                <div class="metric-label">High severity</div>
+              </div>
+              <div class="metric">
+                <div id="metric-intent" class="metric-value">0</div>
+                <div class="metric-label">Intent gaps</div>
+              </div>
+              <div class="metric">
+                <div id="metric-candidates" class="metric-value">0</div>
+                <div class="metric-label">Candidates</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Candidate Builder</h2>
+            <p class="panel-note">Choose the proposed change type and review the generated candidate object.</p>
+          </div>
+          <div class="panel-body">
+            <div class="action-grid" id="action-grid">
+              <button class="action-btn" data-action="add_intent" type="button">Add intent</button>
+              <button class="action-btn" data-action="add_keyword" type="button">Add keyword</button>
+              <button class="action-btn" data-action="rewrite_response" type="button">Rewrite response</button>
+              <button class="action-btn" data-action="add_handoff_rule" type="button">Handoff rule</button>
+              <button class="action-btn" data-action="add_regression_case" type="button">Regression case</button>
+              <button class="action-btn" data-action="reject" type="button">Reject</button>
+            </div>
+            <pre id="candidate-preview" class="preview" aria-label="Candidate rule JSON"></pre>
+          </div>
+        </section>
+      </section>
+
+      <aside class="panel inspector">
+        <div class="panel-header">
+          <h2 class="panel-title">Evidence Inspector</h2>
+          <p id="inspector-note" class="panel-note">Select a finding to review evidence and target file.</p>
+        </div>
+        <div id="record-detail" class="panel-body"></div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const state = {
+      records: [],
+      candidates: [],
+      selectedRecordId: null,
+      selectedAction: null,
+      severity: "all",
+      search: ""
+    };
+
+    const nodes = {
+      severityFilter: document.getElementById("severity-filter"),
+      search: document.getElementById("record-search"),
+      recordList: document.getElementById("record-list"),
+      detail: document.getElementById("record-detail"),
+      inspectorNote: document.getElementById("inspector-note"),
+      preview: document.getElementById("candidate-preview"),
+      actionGrid: document.getElementById("action-grid"),
+      metricTotal: document.getElementById("metric-total"),
+      metricHigh: document.getElementById("metric-high"),
+      metricIntent: document.getElementById("metric-intent"),
+      metricCandidates: document.getElementById("metric-candidates")
+    };
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function parseJsonl(text) {
+      return text.split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map((line) => JSON.parse(line));
+    }
+
+    function slugify(value) {
+      return String(value || "candidate")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "")
+        .slice(0, 48) || "candidate";
+    }
+
+    function severityBadge(severity) {
+      const tone = severity === "high" ? "danger" : severity === "medium" ? "warn" : "good";
+      return `<span class="badge ${tone}">${escapeHtml(severity)}</span>`;
+    }
+
+    function normalizeAction(record, preferredAction) {
+      if (preferredAction) return preferredAction;
+      if (record?.suggested_action?.action_type) return record.suggested_action.action_type;
+      if (record?.problem_type === "intent_match_error") return "add_intent";
+      if (record?.problem_type === "safety_or_policy_boundary") return "add_regression_case";
+      if (record?.problem_type === "handoff_policy_review") return "add_handoff_rule";
+      if (record?.problem_type === "response_quality") return "rewrite_response";
+      return "reject";
+    }
+
+    function targetFileForAction(action) {
+      if (action === "add_intent" || action === "add_keyword") return "configs/intents.json";
+      if (action === "rewrite_response") return "configs/responses.json";
+      if (action === "add_handoff_rule") return "configs/dialogue_flow.json";
+      if (action === "add_regression_case") return "examples/synthetic_turns.jsonl";
+      return "docs/reviewer-notes.md";
+    }
+
+    function buildProposedChange(record, action) {
+      const evidence = record.evidence || {};
+      const text = String(evidence.text || "").trim();
+      const matchedIntent = evidence.matched_intent || "unknown";
+      const node = evidence.node || "clarify_once";
+
+      if (action === "add_intent") {
+        return {
+          action,
+          intent_id: `candidate_${slugify(text).split("_").slice(0, 4).join("_")}`,
+          label: "Candidate intent from synthetic review",
+          keywords: text ? [text] : [],
+          default_next_node: node
+        };
+      }
+      if (action === "add_keyword") {
+        return {
+          action,
+          intent_id: matchedIntent === "unknown" ? "review_required" : matchedIntent,
+          keywords: text ? [text] : []
+        };
+      }
+      if (action === "rewrite_response") {
+        return {
+          action,
+          node,
+          note: record?.suggested_action?.note || "Review response wording for clarity and safety."
+        };
+      }
+      if (action === "add_handoff_rule") {
+        return {
+          action,
+          node,
+          handoff_required: true,
+          note: record?.suggested_action?.note || "Review whether this path should require or recommend handoff."
+        };
+      }
+      if (action === "add_regression_case") {
+        return {
+          action,
+          text,
+          expected_intent: matchedIntent,
+          expected_node: node
+        };
+      }
+      return {
+        action: "reject",
+        note: "No candidate rule should be generated from this record."
+      };
+    }
+
+    function toCandidate(record, preferredAction) {
+      if (!record) return null;
+      const action = normalizeAction(record, preferredAction);
+      return {
+        candidate_id: `candidate-${record.record_id}-${action}`,
+        from_record_id: record.record_id,
+        severity: record.severity || "low",
+        problem_type: record.problem_type || "review_required",
+        target_file: targetFileForAction(action),
+        proposed_change: buildProposedChange(record, action),
+        review_status: action === "reject" ? "rejected" : "reviewing"
+      };
+    }
+
+    function selectedRecord() {
+      return state.records.find((record) => record.record_id === state.selectedRecordId) || state.records[0] || null;
+    }
+
+    function filteredRecords() {
+      const query = state.search.trim().toLowerCase();
+      return state.records.filter((record) => {
+        const evidence = record.evidence || {};
+        const searchable = [
+          record.record_id,
+          record.problem_type,
+          record.severity,
+          evidence.text,
+          evidence.matched_intent,
+          evidence.node,
+          evidence.notes,
+          record?.suggested_action?.action_type
+        ].join(" ").toLowerCase();
+        return (state.severity === "all" || record.severity === state.severity)
+          && (!query || searchable.includes(query));
+      });
+    }
+
+    function renderMetrics() {
+      nodes.metricTotal.textContent = state.records.length;
+      nodes.metricHigh.textContent = state.records.filter((record) => record.severity === "high").length;
+      nodes.metricIntent.textContent = state.records.filter((record) => record.problem_type === "intent_match_error").length;
+      nodes.metricCandidates.textContent = state.records.length;
+    }
+
+    function renderRecords() {
+      const records = filteredRecords();
+      if (!records.length) {
+        nodes.recordList.innerHTML = `<div class="empty">No findings match the current filters.</div>`;
+        return;
+      }
+
+      nodes.recordList.innerHTML = records.map((record) => {
+        const evidence = record.evidence || {};
+        const active = record.record_id === state.selectedRecordId ? " active" : "";
+        return `
+          <button class="record-btn${active}" data-record-id="${escapeHtml(record.record_id)}" type="button">
+            <span class="record-head">
+              <span>
+                <span class="record-title">${escapeHtml(record.record_id)}</span>
+                <span class="record-meta">${escapeHtml(record.problem_type)} · ${escapeHtml(evidence.node || "")}</span>
+              </span>
+              ${severityBadge(record.severity)}
+            </span>
+            <span class="record-meta">${escapeHtml(evidence.text || "")}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function renderDetail(record) {
+      if (!record) {
+        nodes.inspectorNote.textContent = "Select a finding to review evidence and target file.";
+        nodes.detail.innerHTML = `<div class="empty">No finding selected.</div>`;
+        return;
+      }
+
+      const evidence = record.evidence || {};
+      const action = normalizeAction(record, state.selectedAction);
+      nodes.inspectorNote.textContent = `${record.record_id} -> ${targetFileForAction(action)}`;
+      nodes.detail.innerHTML = `
+        <div class="detail-grid">
+          <div class="tag-row">
+            ${severityBadge(record.severity)}
+            <span class="badge">${escapeHtml(record.problem_type)}</span>
+            <span class="badge">${escapeHtml(action)}</span>
+          </div>
+          <div>
+            <p class="panel-title">Evidence</p>
+            <div class="evidence">${escapeHtml(evidence.text || "")}</div>
+          </div>
+          <div class="detail-grid">
+            <div class="kv"><span class="key">Matched intent</span><span class="value">${escapeHtml(evidence.matched_intent || "")}</span></div>
+            <div class="kv"><span class="key">Node</span><span class="value">${escapeHtml(evidence.node || "")}</span></div>
+            <div class="kv"><span class="key">Suggested</span><span class="value">${escapeHtml(record?.suggested_action?.action_type || "")}</span></div>
+            <div class="kv"><span class="key">Target file</span><span class="value">${escapeHtml(targetFileForAction(action))}</span></div>
+            <div class="kv"><span class="key">Notes</span><span class="value">${escapeHtml(evidence.notes || record?.suggested_action?.note || "")}</span></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderActions(record) {
+      const action = normalizeAction(record, state.selectedAction);
+      nodes.actionGrid.querySelectorAll("[data-action]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.action === action);
+      });
+    }
+
+    function renderPreview(record) {
+      const candidate = toCandidate(record, state.selectedAction);
+      nodes.preview.textContent = candidate
+        ? JSON.stringify(candidate, null, 2)
+        : "No candidate selected.";
+    }
+
+    function render() {
+      nodes.severityFilter.value = state.severity;
+      nodes.search.value = state.search;
+      const records = filteredRecords();
+      if (!records.some((record) => record.record_id === state.selectedRecordId)) {
+        state.selectedRecordId = records[0]?.record_id || null;
+        state.selectedAction = null;
+      }
+      const record = selectedRecord();
+      renderMetrics();
+      renderRecords();
+      renderActions(record);
+      renderDetail(record);
+      renderPreview(record);
+    }
+
+    async function loadData() {
+      try {
+        const [queueResponse, candidateResponse] = await Promise.all([
+          fetch("../examples/improvement_queue.jsonl", { cache: "no-store" }),
+          fetch("../examples/candidate_rules.json", { cache: "no-store" })
+        ]);
+        if (!queueResponse.ok) throw new Error(`Queue HTTP ${queueResponse.status}`);
+        const queueText = await queueResponse.text();
+        state.records = parseJsonl(queueText);
+        if (candidateResponse.ok) {
+          const candidateData = await candidateResponse.json();
+          state.candidates = Array.isArray(candidateData.candidates) ? candidateData.candidates : [];
+        }
+        state.selectedRecordId = state.records[0]?.record_id || null;
+      } catch (error) {
+        nodes.recordList.innerHTML = `<div class="empty">Could not load synthetic improvement queue.</div>`;
+        nodes.detail.innerHTML = `<div class="empty">${escapeHtml(error.message)}</div>`;
+        nodes.preview.textContent = "Serve this repository locally and open public/improvement-workbench.html.";
+        return;
+      }
+      render();
+    }
+
+    nodes.severityFilter.addEventListener("change", (event) => {
+      state.severity = event.target.value;
+      render();
+    });
+
+    nodes.search.addEventListener("input", (event) => {
+      state.search = event.target.value;
+      render();
+    });
+
+    nodes.recordList.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-record-id]");
+      if (!button) return;
+      state.selectedRecordId = button.dataset.recordId;
+      state.selectedAction = null;
+      render();
+    });
+
+    nodes.actionGrid.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-action]");
+      if (!button) return;
+      state.selectedAction = button.dataset.action;
+      render();
+    });
+
+    loadData();
+  </script>
+</body>
+</html>
