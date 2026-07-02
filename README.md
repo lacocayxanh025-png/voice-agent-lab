@@ -53,6 +53,7 @@ node src/simulator.js --text "I want to cancel my account"
 node src/simulator.js --text "Do not call me again"
 node src/simulator.js --text "你们能帮我预约明天吗"
 npm run persona:run -- --persona skeptical_identity_checker --seed demo
+npm run candidate:generate
 npm run queue:export
 python -m http.server 8080
 ```
@@ -60,6 +61,8 @@ python -m http.server 8080
 You can also open `public/demo.html` for a local reviewer demo. The page includes optional browser voice input and browser speech output when the current browser supports Web Speech APIs. This is a local convenience layer, not a production ASR/TTS integration.
 
 The v0.2 review console is available at `public/review-console.html` when served from the repository root. It loads `examples/synthetic_review_runs.json` and lets maintainers inspect synthetic runs, cases, risk labels, handoff flags, and improvement hints. See [docs/review-console.md](docs/review-console.md).
+
+The v0.4 improvement workbench is available at `public/improvement-workbench.html` when served from the repository root. It loads `examples/improvement_queue.jsonl` and previews candidate rules for intent, keyword, response, handoff, or regression-case changes. See [docs/improvement-workbench.md](docs/improvement-workbench.md).
 
 Example output:
 
@@ -107,6 +110,7 @@ docs/
   codex-oss-application.md
   github-repository-setup.md
   improvement-loop.md
+  improvement-workbench.md
   language-strategy.md
   persona-sparring.md
   review-console.md
@@ -125,20 +129,25 @@ examples/
 public/
   demo.html                 Small static reviewer demo
   review-console.html       Static synthetic run review console
+  improvement-workbench.html Static synthetic candidate-rule workbench
 schemas/
+  candidate_rule.schema.json
   improvement_record.schema.json
   persona.schema.json
 scripts/
   check_no_sensitive_terms.js
   export_improvement_queue.js
+  generate_candidate_rules.js
 src/
   adapters/voice_adapter.js Provider-neutral voice adapter shape
   engine.js                 Core matching and routing engine
+  improvement_workbench.js  Candidate rule generation helpers
   persona_sparring.js       Scripted persona sparring runner
   persona_runner.js         CLI wrapper for persona sparring
   simulator.js              CLI wrapper
 tests/
   engine.test.js
+  improvement_workbench.test.js
   persona_sparring.test.js
   review_data.test.js
   voice_adapter.test.js
@@ -223,6 +232,8 @@ The public package keeps the same basic review logic as the private workflow, bu
 
 Run `npm run queue:export` to generate queue records from synthetic examples into `tmp/improvement_queue.generated.jsonl`. The queue is meant for review: unknown, risky, or low-quality turns can become proposed keywords, intents, response rewrites, handoff rules, or regression cases.
 
+Run `npm run candidate:generate` to turn the synthetic improvement queue into `tmp/candidate_rules.generated.json`. The generated file is a review proposal, not an automatic production writeback.
+
 See [docs/improvement-loop.md](docs/improvement-loop.md) for the full loop.
 
 ## Current Limitations
@@ -247,7 +258,6 @@ See [docs/codex-oss-application.md](docs/codex-oss-application.md) for a draft a
 
 ## Roadmap
 
-- Add an improvement workbench that turns review findings into candidate rules.
 - Add JSON schema validation without requiring runtime dependencies.
 - Add English fixture expansion, then optional multilingual and multi-scenario test packs.
 

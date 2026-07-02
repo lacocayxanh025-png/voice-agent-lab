@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lacocayxanh025-png/voice-agent-lab/schemas/candidate_rule.schema.json",
+  "title": "Voice Agent Lab Candidate Rule",
+  "type": "object",
+  "required": [
+    "candidate_id",
+    "from_record_id",
+    "target_file",
+    "proposed_change",
+    "review_status"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "candidate_id": {
+      "type": "string"
+    },
+    "from_record_id": {
+      "type": "string"
+    },
+    "severity": {
+      "enum": ["low", "medium", "high"]
+    },
+    "problem_type": {
+      "type": "string"
+    },
+    "target_file": {
+      "type": "string"
+    },
+    "proposed_change": {
+      "type": "object",
+      "required": ["action"],
+      "properties": {
+        "action": {
+          "enum": [
+            "add_intent",
+            "add_keyword",
+            "rewrite_response",
+            "add_handoff_rule",
+            "add_regression_case",
+            "reject"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "review_status": {
+      "enum": ["reviewing", "approved", "rejected"]
+    }
+  }
+}
