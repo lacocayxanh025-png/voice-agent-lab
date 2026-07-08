@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lacocayxanh025-png/voice-agent-lab/schemas/config_responses.schema.json",
+  "title": "Voice Agent Lab Responses Config",
+  "type": "object",
+  "required": ["version", "description", "responses"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "responses": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

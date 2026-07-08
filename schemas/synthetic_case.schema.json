@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lacocayxanh025-png/voice-agent-lab/schemas/synthetic_case.schema.json",
+  "title": "Voice Agent Lab Synthetic Case",
+  "type": "object",
+  "required": ["pack_id", "language", "scenario", "text", "expected_intent", "expected_node"],
+  "additionalProperties": false,
+  "properties": {
+    "pack_id": { "type": "string", "pattern": "^[a-z0-9_\\-]+$" },
+    "language": { "type": "string", "pattern": "^[a-z]{2}$" },
+    "scenario": { "type": "string", "pattern": "^[a-z0-9_\\-]+$" },
+    "text": { "type": "string", "minLength": 2 },
+    "expected_intent": { "type": "string", "pattern": "^[a-z0-9_\\-]+$" },
+    "expected_node": { "type": "string", "pattern": "^[a-z0-9_\\-]+$" },
+    "risk_level": { "enum": ["low", "medium", "high"] },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "note": { "type": "string" }
+  }
+}

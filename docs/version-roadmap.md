@@ -2,9 +2,9 @@
 
 This roadmap explains what is included now and what should be added later.
 
-## Current: v0.4 Improvement Workbench
+## Current: v0.5 Validation And Language Packs
 
-The current package is a safe public baseline with a static synthetic review console, scripted persona sparring, and an improvement workbench:
+The current package is a safe public baseline with a static synthetic review console, scripted persona sparring, an improvement workbench, config validation, and synthetic language/scenario packs:
 
 - deterministic text engine
 - provider-neutral voice adapter shape
@@ -22,19 +22,27 @@ The current package is a safe public baseline with a static synthetic review con
 - bounded randomness controls
 - improvement workbench for candidate intent, keyword, response, handoff, and regression-case changes
 - candidate rule generation CLI
+- config validation command
+- config schemas for intents, responses, and dialogue flow
+- synthetic case schema
+- English and Chinese synthetic pack structure
+- multi-scenario fixture rows for outbound training and customer support
 - no real audio or transcript data
 
-This is enough for maintainers to test text routing, inspect completed synthetic runs, run scripted persona pressure tests, convert review findings into candidate rules, and connect their own ASR/TTS or multimodal speech stack locally.
+This is enough for maintainers to test text routing, inspect completed synthetic runs, run scripted persona pressure tests, validate config changes, convert review findings into candidate rules, and connect their own ASR/TTS or multimodal speech stack locally.
 
-## Next: v0.5 Validation And Language Packs
+## Next: v0.6 Example Hardening And Docs Polish
 
-Improve maintainability and coverage:
+Improve usability without changing the privacy boundary:
 
-- config validation command
-- English fixture expansion
-- optional language packs
-- multi-scenario packs
-- CI checks for fixture quality
+- add more synthetic examples
+- clarify integration docs
+- tighten README usage paths
+- improve release notes
+
+## Later: Evaluation Report Export
+
+A later release can export review summaries such as pass rate, handoff rate, unknown-intent rate, risk distribution, and candidate-rule counts from synthetic runs.
 
 ## Non-Goals
 
