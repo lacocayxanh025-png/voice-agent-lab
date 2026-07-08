@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lacocayxanh025-png/voice-agent-lab/schemas/config_dialogue_flow.schema.json",
+  "title": "Voice Agent Lab Dialogue Flow Config",
+  "type": "object",
+  "required": ["version", "start_node", "default_node", "global_guards", "nodes"],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "start_node": { "type": "string" },
+    "default_node": { "type": "string" },
+    "global_guards": {
+      "type": "object",
+      "required": ["max_clarifying_turns", "high_risk_policy", "forbidden_promises"],
+      "additionalProperties": true,
+      "properties": {
+        "max_clarifying_turns": { "type": "integer" },
+        "high_risk_policy": { "type": "string" },
+        "forbidden_promises": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "nodes": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

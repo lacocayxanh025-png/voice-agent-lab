@@ -13,13 +13,13 @@ The first public release is English-first.
 
 English keeps the initial public repository easier for reviewers to inspect. It also avoids publishing private domain wording or local business phrasing from the original private workflow.
 
-## Future Language Packs
+## Language Packs
 
-Language support should be added as separate synthetic fixture packs:
+Language support is kept in separate synthetic fixture packs:
 
-- `examples/packs/en.jsonl`
-- `examples/packs/zh.jsonl`
-- `examples/packs/es.jsonl`
+- `examples/packs/en/outbound_training.jsonl`
+- `examples/packs/en/customer_support.jsonl`
+- `examples/packs/zh/outbound_training.jsonl`
 
 Each language pack should include:
 
@@ -41,7 +41,7 @@ A future update can add:
 }
 ```
 
-The first implementation should keep this simple. Avoid automatic translation in tests unless the translation provider is mocked.
+The first implementation keeps this simple. Avoid automatic translation in tests unless the translation provider is mocked.
 
 ## Privacy Rules
 

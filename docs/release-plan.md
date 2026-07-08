@@ -49,3 +49,12 @@ Goal: improve maintainability and coverage.
 - Language strategy and optional language packs.
 - More multilingual and multi-scenario fixtures.
 - CI checks for fixture quality.
+
+## v0.6.0
+
+Goal: make the project easier to inspect and adopt.
+
+- More synthetic examples.
+- Clearer ASR/TTS and multimodal adapter documentation.
+- README usage-path polish.
+- Release-note cleanup.

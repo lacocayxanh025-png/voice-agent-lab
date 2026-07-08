@@ -82,33 +82,22 @@ Why this comes after sparring:
 - Review and sparring create the evidence.
 - The workbench turns that evidence into maintainable rule changes.
 
-## PR 4: Add config validation draft
+## PR 4: Add config validation and language packs
 
 Branch:
 
 ```text
-validation/config-schema-draft
+feature/config-validation-language-packs
 ```
 
 Changes:
 
 - Add draft JSON schemas for config files.
 - Add a validation command.
-- Add one passing and one failing test fixture.
-
-## PR 5: Add language pack structure
-
-Branch:
-
-```text
-fixtures/language-packs
-```
-
-Changes:
-
-- Keep `en` as the default language.
-- Add optional synthetic language-pack structure.
+- Keep English as the default language.
+- Add optional synthetic language and scenario-pack structure.
 - Add a small fixture pack for one additional language.
+- Add multi-scenario fixture checks.
 - Document that real transcripts must be rewritten into synthetic examples before publication.
 
 ## What Not To Do

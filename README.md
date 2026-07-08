@@ -48,6 +48,7 @@ The rule engine is deliberately simple so maintainers can review pull requests w
 
 ```bash
 npm test
+npm run validate:config
 npm run privacy:check
 node src/simulator.js --text "I want to cancel my account"
 node src/simulator.js --text "Do not call me again"
@@ -63,6 +64,14 @@ You can also open `public/demo.html` for a local reviewer demo. The page include
 The v0.2 review console is available at `public/review-console.html` when served from the repository root. It loads `examples/synthetic_review_runs.json` and lets maintainers inspect synthetic runs, cases, risk labels, handoff flags, and improvement hints. See [docs/review-console.md](docs/review-console.md).
 
 The v0.4 improvement workbench is available at `public/improvement-workbench.html` when served from the repository root. It loads `examples/improvement_queue.jsonl` and previews candidate rules for intent, keyword, response, handoff, or regression-case changes. See [docs/improvement-workbench.md](docs/improvement-workbench.md).
+
+The v0.5 validation command checks routing configs and synthetic language/scenario packs before a maintainer opens a pull request:
+
+```bash
+npm run validate:config
+```
+
+See [docs/config-validation.md](docs/config-validation.md).
 
 Example output:
 
@@ -108,6 +117,7 @@ configs/
 docs/
   architecture.md
   codex-oss-application.md
+  config-validation.md
   github-repository-setup.md
   improvement-loop.md
   improvement-workbench.md
@@ -121,6 +131,7 @@ docs/
   version-roadmap.md
   voice-layer.md
 examples/
+  packs/                    Synthetic language and scenario packs
   synthetic_turns.jsonl     Synthetic regression examples
   improvement_queue.jsonl   Synthetic review queue examples
   candidate_rules.json      Example proposed rule changes
@@ -132,24 +143,32 @@ public/
   improvement-workbench.html Static synthetic candidate-rule workbench
 schemas/
   candidate_rule.schema.json
+  config_dialogue_flow.schema.json
+  config_intents.schema.json
+  config_responses.schema.json
   improvement_record.schema.json
   persona.schema.json
+  synthetic_case.schema.json
 scripts/
   check_no_sensitive_terms.js
   export_improvement_queue.js
   generate_candidate_rules.js
+  validate_config.js
 src/
   adapters/voice_adapter.js Provider-neutral voice adapter shape
   engine.js                 Core matching and routing engine
   improvement_workbench.js  Candidate rule generation helpers
   persona_sparring.js       Scripted persona sparring runner
   persona_runner.js         CLI wrapper for persona sparring
+  schema_validator.js       Lightweight local schema validator
   simulator.js              CLI wrapper
 tests/
+  config_validation.test.js
   engine.test.js
   improvement_workbench.test.js
   persona_sparring.test.js
   review_data.test.js
+  synthetic_packs.test.js
   voice_adapter.test.js
 CONTRIBUTING.md
 SECURITY.md
@@ -215,9 +234,19 @@ It produces synthetic review cases by running persona turns through the local ro
 
 ## Language Strategy
 
-The first public release is English-first. The engine itself is language-neutral because intents, keywords, responses, and examples live in config files. Future updates should add separate synthetic language packs instead of mixing private local phrasing into the baseline repository.
+The public release is English-first. The engine itself is language-neutral because intents, keywords, responses, and examples live in config files. v0.5 adds synthetic language and scenario packs under `examples/packs/`, including English outbound-training, English customer-support, and Chinese outbound-training examples.
 
 See [docs/language-strategy.md](docs/language-strategy.md) and [docs/version-roadmap.md](docs/version-roadmap.md).
+
+## Config Validation
+
+Use the local validator before changing config or fixture packs:
+
+```bash
+npm run validate:config
+```
+
+The command checks JSON schema shape and cross-file references between intents, dialogue nodes, responses, and synthetic pack expectations. It is dependency-free and intended for public-safe maintainer checks.
 
 ## Improvement Pools
 
@@ -227,6 +256,7 @@ The public package keeps the same basic review logic as the private workflow, bu
 - Response pool: `configs/responses.json`
 - Flow pool: `configs/dialogue_flow.json`
 - Regression pool: `examples/synthetic_turns.jsonl`
+- Language/scenario packs: `examples/packs/**/*.jsonl`
 - Improvement queue: `examples/improvement_queue.jsonl`
 - Candidate rule pool: `examples/candidate_rules.json`
 
@@ -258,8 +288,9 @@ See [docs/codex-oss-application.md](docs/codex-oss-application.md) for a draft a
 
 ## Roadmap
 
-- Add JSON schema validation without requiring runtime dependencies.
-- Add English fixture expansion, then optional multilingual and multi-scenario test packs.
+- Add richer evaluation report exports.
+- Add more synthetic examples and documentation polish.
+- Keep API adapter examples provider-neutral and key-free.
 
 ## License
 
