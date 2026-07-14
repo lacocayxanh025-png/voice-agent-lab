@@ -4,18 +4,20 @@
 [![Release](https://img.shields.io/github/v/release/lacocayxanh025-png/voice-agent-lab)](https://github.com/lacocayxanh025-png/voice-agent-lab/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Voice Agent Lab is a privacy-first training and sparring toolkit for teams that already build voice agents, intelligent phone workflows, or customer-support bots. It helps them test and improve the agent before putting it in front of real users, real calls, or production contact-center systems.
+Voice Agent Lab is a privacy-first two-sided conversation lab for phone and chat agents. It simulates both sides of a support or sales conversation: an agent that follows a knowledge base and policies, and a synthetic customer with a goal, background, objections, privacy concerns, patience level, and interruption behavior. Teams can review the exchange, find knowledge-base gaps, and turn those findings into candidate rules and regression cases before connecting real users or production channels.
 
 The current public release is v0.6.0. It keeps the core text-first and provider-neutral while adding clearer adoption paths, extra synthetic edge cases, and a more concrete voice-integration guide.
 
 It helps teams design and review:
 
-- voice-agent practice flows for outbound calling or customer support
+- phone customer-service, outbound-sales, and chat-support practice flows
+- synthetic customer personas and bounded conversation variation
 - intent routing from short user utterances
 - risk metadata and escalation boundaries
 - "do not continue" and complaint handling
 - synthetic regression tests for conversation rules
 - an improvement queue for unknown, risky, or low-quality turns
+- candidate knowledge-base, response, handoff, and regression changes
 
 The repository intentionally uses synthetic examples only. It does not include real call recordings, transcripts, phone numbers, customer names, or API keys.
 
@@ -45,6 +47,32 @@ This project takes a smaller, inspectable approach:
 5. Run regression tests against synthetic examples before shipping rule changes.
 
 The rule engine is deliberately simple so maintainers can review pull requests without needing private data or paid services.
+
+## Core Use Case: Simulate Both Sides, Improve The Knowledge Base
+
+Imagine a phone sales or customer-service agent that must explain a service, answer a cost question, respect privacy, stop when asked, and hand off to a person when needed. Before connecting that agent to a phone line or chat channel, a maintainer can create several synthetic customers:
+
+- a curious customer who wants a simple explanation
+- a skeptical customer who asks who the agent represents
+- a privacy-sensitive customer who does not want to share personal information
+- an impatient customer who asks for a human representative
+- a customer who changes their mind and asks to stop contact
+
+Voice Agent Lab runs these synthetic customer personas against the same agent flow. The conversation can be text-only, connected to a private ASR/TTS stack for phone testing, or connected to a multimodal speech API owned by the maintainer. For chat or WeChat-like customer service, the same routing and review loop can receive text events directly.
+
+The improvement loop is:
+
+```text
+agent knowledge base + policies
+  -> synthetic customer persona and scenario
+  -> two-sided conversation
+  -> review console: intent, risk, handoff, and unknown turns
+  -> improvement workbench: candidate knowledge-base or rule change
+  -> synthetic regression case
+  -> repeat the conversation before release
+```
+
+The output is a reviewable improvement record rather than an automatic production change. A team can see which question was misunderstood, which response needs rewriting, whether a handoff rule is missing, and which new example should stay in regression coverage. See [docs/core-use-case.md](docs/core-use-case.md) for the full scenario and channel mapping.
 
 ## Quick Start
 
@@ -129,6 +157,7 @@ docs/
   architecture.md
   codex-oss-application.md
   config-validation.md
+  core-use-case.md
   github-repository-setup.md
   improvement-loop.md
   improvement-workbench.md
