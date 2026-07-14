@@ -6,7 +6,7 @@
 
 Voice Agent Lab is a privacy-first two-sided conversation lab for phone and chat agents. It simulates both sides of a support or sales conversation: an agent that follows a knowledge base and policies, and a synthetic customer with a goal, background, objections, privacy concerns, patience level, and interruption behavior. Teams can review the exchange, find knowledge-base gaps, and turn those findings into candidate rules and regression cases before connecting real users or production channels.
 
-The current public release is v0.6.0. It keeps the core text-first and provider-neutral while adding clearer adoption paths, extra synthetic edge cases, and a more concrete voice-integration guide.
+The current public release is v0.7.0. It keeps the core text-first and provider-neutral while adding a knowledge-base adapter contract, per-turn retrieval traces, synthetic knowledge items, and a concrete voice-integration guide.
 
 It helps teams design and review:
 
@@ -86,6 +86,7 @@ The shortest useful path is:
 ```bash
 npm test
 npm run validate:config
+npm run validate:knowledge
 npm run privacy:check
 node src/simulator.js --text "I want to cancel my account"
 node src/simulator.js --text "Do not call me again"
@@ -104,10 +105,11 @@ The v0.2 review console is available at `public/review-console.html` when served
 
 The v0.4 improvement workbench is available at `public/improvement-workbench.html` when served from the repository root. It loads `examples/improvement_queue.jsonl` and previews candidate rules for intent, keyword, response, handoff, or regression-case changes. See [docs/improvement-workbench.md](docs/improvement-workbench.md).
 
-The v0.5 validation command checks routing configs and synthetic language/scenario packs before a maintainer opens a pull request:
+The validation commands check routing configs, synthetic language/scenario packs, and the synthetic knowledge base before a maintainer opens a pull request:
 
 ```bash
 npm run validate:config
+npm run validate:knowledge
 ```
 
 See [docs/config-validation.md](docs/config-validation.md).
@@ -162,6 +164,7 @@ docs/
   improvement-loop.md
   improvement-workbench.md
   language-strategy.md
+  knowledge-base-integration.md
   persona-sparring.md
   review-console.md
   issue-drafts.md
@@ -171,6 +174,7 @@ docs/
   version-roadmap.md
   voice-layer.md
 examples/
+  knowledge_base.json      Synthetic knowledge items for retrieval examples
   packs/                    Synthetic language and scenario packs
   synthetic_turns.jsonl     Synthetic regression examples
   improvement_queue.jsonl   Synthetic review queue examples
@@ -187,6 +191,7 @@ schemas/
   config_intents.schema.json
   config_responses.schema.json
   improvement_record.schema.json
+  knowledge_item.schema.json
   persona.schema.json
   synthetic_case.schema.json
 scripts/
@@ -194,9 +199,12 @@ scripts/
   export_improvement_queue.js
   generate_candidate_rules.js
   validate_config.js
+  validate_knowledge_base.js
 src/
   adapters/voice_adapter.js Provider-neutral voice adapter shape
+  adapters/knowledge_base_adapter.js Knowledge-base provider contract and synthetic adapter
   engine.js                 Core matching and routing engine
+  knowledge_retrieval.js    Per-turn retrieval context and provider trace
   improvement_workbench.js  Candidate rule generation helpers
   persona_sparring.js       Scripted persona sparring runner
   persona_runner.js         CLI wrapper for persona sparring
@@ -206,6 +214,7 @@ tests/
   config_validation.test.js
   engine.test.js
   improvement_workbench.test.js
+  knowledge_base.test.js
   persona_sparring.test.js
   review_data.test.js
   synthetic_packs.test.js
@@ -251,6 +260,12 @@ See [docs/voice-layer.md](docs/voice-layer.md) for the provider-neutral adapter 
 For a copyable integration checklist, see [docs/voice-integration-quickstart.md](docs/voice-integration-quickstart.md).
 
 The first public version includes `src/adapters/voice_adapter.js`. It defines the shape for ASR and TTS integration without binding the project to a provider.
+
+## Connecting An External Knowledge Base
+
+The knowledge base stays in the customer's own backend. Voice Agent Lab calls a provider-neutral `search(query, options)` adapter for each user turn, keeps the top relevant items, and returns a trace that includes the item IDs, source, version, and assembled context. A host-side agent can use that context to generate the response.
+
+The public package includes a synthetic ten-item knowledge base and a static adapter so the workflow can be tested without an account or a remote service. For a real integration, implement the same adapter around the customer's REST search endpoint, database service, vector search layer, or existing customer-service backend. See [docs/knowledge-base-integration.md](docs/knowledge-base-integration.md).
 
 ## Persona Sparring
 

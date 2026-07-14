@@ -58,3 +58,14 @@ Goal: make the project easier to inspect and adopt.
 - Clearer ASR/TTS and multimodal adapter documentation.
 - README usage-path polish.
 - Release-note cleanup.
+
+## v0.7.0
+
+Goal: connect the review loop to a customer-owned knowledge base without publishing or copying customer data.
+
+- Provider-neutral `search(query, options)` knowledge-base adapter.
+- Per-turn Top-K retrieval and assembled context.
+- Retrieval trace with item IDs, source, version, and provider.
+- Optional host-side response generator hook.
+- Synthetic knowledge-base fixture, schema, validator, and tests.
+- Documentation for phone, outbound-sales, web-chat, and WeChat-like support channels.
