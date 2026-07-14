@@ -1,7 +1,7 @@
 {
   "name": "voice-agent-lab",
-  "version": "0.6.0",
-  "description": "A privacy-first lab for testing voice-agent intent routing, escalation rules, and improvement queues with synthetic conversations.",
+  "version": "0.7.0",
+  "description": "A privacy-first two-sided conversation lab for testing phone and chat agents against customer-owned knowledge bases with synthetic conversations.",
   "private": false,
   "type": "commonjs",
   "main": "src/engine.js",
@@ -11,8 +11,9 @@
     "candidate:generate": "node scripts/generate_candidate_rules.js",
     "queue:export": "node scripts/export_improvement_queue.js",
     "validate:config": "node scripts/validate_config.js",
+    "validate:knowledge": "node scripts/validate_knowledge_base.js",
     "adapter:check": "node tests/voice_adapter.test.js",
-    "test": "node tests/engine.test.js && node tests/voice_adapter.test.js && node tests/review_data.test.js && node tests/persona_sparring.test.js && node tests/improvement_workbench.test.js && node tests/config_validation.test.js && node tests/synthetic_packs.test.js && npm run validate:config",
+    "test": "node tests/engine.test.js && node tests/voice_adapter.test.js && node tests/review_data.test.js && node tests/persona_sparring.test.js && node tests/improvement_workbench.test.js && node tests/config_validation.test.js && node tests/synthetic_packs.test.js && node tests/knowledge_base.test.js && npm run validate:config && npm run validate:knowledge",
     "privacy:check": "node scripts/check_no_sensitive_terms.js"
   },
   "keywords": [

@@ -1,0 +1,96 @@
+{
+  "version": "synthetic-2026-07",
+  "description": "Synthetic knowledge items for demonstrating per-turn retrieval.",
+  "items": [
+    {
+      "id": "service_overview",
+      "title": "Service overview",
+      "content": "The service starts with a short needs conversation, followed by a review of the available next steps.",
+      "source": "synthetic-customer-knowledge-base",
+      "version": "kb-demo-1",
+      "language": "en",
+      "tags": ["overview", "process"]
+    },
+    {
+      "id": "process_next_steps",
+      "title": "Process next steps",
+      "content": "After the initial conversation, the assistant explains the process and asks only for the information needed for the next review step.",
+      "source": "synthetic-customer-knowledge-base",
+      "version": "kb-demo-1",
+      "language": "en",
+      "tags": ["process", "next-steps"]
+    },
+    {
+      "id": "pricing_boundary",
+      "title": "Pricing boundary",
+      "content": "The assistant may explain how pricing, cost, and fee details are assessed, but a binding quote requires a qualified human review.",
+      "source": "synthetic-customer-knowledge-base",
+      "version": "kb-demo-1",
+      "language": "en",
+      "tags": ["pricing", "handoff"]
+    },
+    {
+      "id": "privacy_minimum_data",
+      "title": "Privacy and minimum data",
+      "content": "The assistant should explain why a data point is needed and allow the customer to decline information that is not required for the current step.",
+      "source": "synthetic-customer-knowledge-base",
+      "version": "kb-demo-1",
+      "language": "en",
+      "tags": ["privacy", "data"]
+    },
+    {
+      "id": "human_handoff",
+      "title": "Human handoff",
+      "content": "A customer can request a human representative at any time. The assistant should acknowledge the request and hand off with the relevant conversation context.",
+      "source": "synthetic-customer-knowledge-base",
+      "version": "kb-demo-1",
+      "language": "en",
+      "tags": ["handoff", "support"]
+    },
+    {
+      "id": "stop_contact",
+      "title": "Stop-contact request",
+      "content": "When a customer asks to stop contact, the assistant should acknowledge the request, stop the conversation, and avoid making another offer.",
+      "source": "synthetic-customer-knowledge-base",
+      "version": "kb-demo-1",
+      "language": "en",
+      "tags": ["stop-contact", "safety"]
+    },
+    {
+      "id": "callback_window",
+      "title": "Callback window",
+      "content": "The assistant may record a broad callback window such as tomorrow or next week. It should avoid collecting unnecessary sensitive details in the scheduling step.",
+      "source": "synthetic-customer-knowledge-base",
+      "version": "kb-demo-1",
+      "language": "en",
+      "tags": ["scheduling", "privacy"]
+    },
+    {
+      "id": "identity_statement",
+      "title": "Identity statement",
+      "content": "The assistant should clearly explain the service it represents and should not claim to be a human or an official authority when it is not.",
+      "source": "synthetic-customer-knowledge-base",
+      "version": "kb-demo-1",
+      "language": "en",
+      "tags": ["identity", "trust"]
+    },
+    {
+      "id": "complaint_handling",
+      "title": "Complaint handling",
+      "content": "A complaint should receive a short acknowledgement and an appropriate human escalation path when the customer wants follow-up.",
+      "source": "synthetic-customer-knowledge-base",
+      "version": "kb-demo-1",
+      "language": "en",
+      "tags": ["complaint", "handoff"]
+    },
+    {
+      "id": "unsupported_question",
+      "title": "Unsupported question handling",
+      "content": "When no relevant knowledge item is found, the assistant should ask one clarification question and place the gap into the improvement queue for review.",
+      "source": "synthetic-customer-knowledge-base",
+      "version": "kb-demo-1",
+      "language": "en",
+      "tags": ["unknown", "improvement"]
+    }
+  ]
+}

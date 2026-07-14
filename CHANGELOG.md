@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.0 - 2026-07-14
+
+- Added a provider-neutral knowledge-base adapter contract.
+- Added per-turn Top-K retrieval context with item IDs, source, version, and provider trace.
+- Added an optional host-side response generator hook that receives route and knowledge context.
+- Added a synthetic ten-item knowledge base, schema, validator, and integration tests.
+- Documented how customer-owned knowledge bases connect to phone and chat agent workflows.
+- Kept customer knowledge, credentials, and production writeback outside the public package.
+
 ## 0.6.0 - 2026-07-14
 
 - Added English edge-case synthetic pack covering supported routes and unknown-turn handling.

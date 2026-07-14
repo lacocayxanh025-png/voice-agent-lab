@@ -61,7 +61,7 @@ After a run, the maintainer reviews the conversation and classifies the gap:
 - stop-contact boundary needs a regression case
 - unsupported turn that should remain in the improvement queue
 
-The improvement workbench exports a candidate change for review. A maintainer then updates the knowledge base or routing config, adds a synthetic regression case, and runs the checks again. The system does not write changes into production automatically.
+The improvement workbench exports a candidate change for review. A maintainer then updates the knowledge base or routing config, adds a synthetic regression case, and runs the checks again. The system does not write changes into production automatically. See [knowledge-base-integration.md](knowledge-base-integration.md) for the adapter and per-turn retrieval contract.
 
 ## Why This Is Useful
 
