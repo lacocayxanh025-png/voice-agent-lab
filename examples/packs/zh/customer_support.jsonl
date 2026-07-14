@@ -1,0 +1,8 @@
+{"pack_id":"zh_customer_support","language":"zh","scenario":"customer_support","text":"你们正规吗，能说明一下吗","expected_intent":"identity_check","expected_node":"identity_explain","risk_level":"low","tags":["identity","boundary"]}
+{"pack_id":"zh_customer_support","language":"zh","scenario":"customer_support","text":"为什么问我的信息","expected_intent":"privacy_concern","expected_node":"privacy_boundary","risk_level":"medium","tags":["privacy","boundary"]}
+{"pack_id":"zh_customer_support","language":"zh","scenario":"customer_support","text":"这个服务怎么操作","expected_intent":"how_it_works","expected_node":"process_explain","risk_level":"low","tags":["process","boundary"]}
+{"pack_id":"zh_customer_support","language":"zh","scenario":"customer_support","text":"我要人工帮我处理","expected_intent":"handoff_request","expected_node":"human_handoff","risk_level":"medium","tags":["handoff","boundary"]}
+{"pack_id":"zh_customer_support","language":"zh","scenario":"customer_support","text":"收费标准是多少","expected_intent":"price_or_cost","expected_node":"cost_boundary","risk_level":"medium","tags":["pricing","boundary"]}
+{"pack_id":"zh_customer_support","language":"zh","scenario":"customer_support","text":"下周再联系我","expected_intent":"schedule_callback","expected_node":"schedule_callback","risk_level":"low","tags":["scheduling","boundary"]}
+{"pack_id":"zh_customer_support","language":"zh","scenario":"customer_support","text":"不要再联系我了","expected_intent":"stop_contact","expected_node":"safe_stop","risk_level":"high","tags":["stop_contact","compliance"]}
+{"pack_id":"zh_customer_support","language":"zh","scenario":"customer_support","text":"我想了解一下","expected_intent":"positive_interest","expected_node":"need_probe","risk_level":"low","tags":["interest","boundary"]}

@@ -6,6 +6,8 @@
 
 Voice Agent Lab is a privacy-first training and sparring toolkit for teams that already build voice agents, intelligent phone workflows, or customer-support bots. It helps them test and improve the agent before putting it in front of real users, real calls, or production contact-center systems.
 
+The current public release is v0.6.0. It keeps the core text-first and provider-neutral while adding clearer adoption paths, extra synthetic edge cases, and a more concrete voice-integration guide.
+
 It helps teams design and review:
 
 - voice-agent practice flows for outbound calling or customer support
@@ -46,6 +48,13 @@ The rule engine is deliberately simple so maintainers can review pull requests w
 
 ## Quick Start
 
+The shortest useful path is:
+
+1. Run the tests and config checks.
+2. Simulate a few text turns with the local engine.
+3. Inspect the synthetic review console.
+4. Connect your own ASR/TTS or multimodal speech adapter only after the text behavior is understood.
+
 ```bash
 npm test
 npm run validate:config
@@ -58,6 +67,8 @@ npm run candidate:generate
 npm run queue:export
 python -m http.server 8080
 ```
+
+For a clean first check, run `npm test` and `npm run privacy:check` before opening any browser page. The commands do not need provider credentials or network access.
 
 You can also open `public/demo.html` for a local reviewer demo. The page includes optional browser voice input and browser speech output when the current browser supports Web Speech APIs. This is a local convenience layer, not a production ASR/TTS integration.
 
@@ -208,6 +219,8 @@ The repository does not require a specific AI provider. Users can connect browse
 
 See [docs/voice-layer.md](docs/voice-layer.md) for the provider-neutral adapter shape.
 
+For a copyable integration checklist, see [docs/voice-integration-quickstart.md](docs/voice-integration-quickstart.md).
+
 The first public version includes `src/adapters/voice_adapter.js`. It defines the shape for ASR and TTS integration without binding the project to a provider.
 
 ## Persona Sparring
@@ -237,6 +250,8 @@ It produces synthetic review cases by running persona turns through the local ro
 The public release is English-first. The engine itself is language-neutral because intents, keywords, responses, and examples live in config files. v0.5 adds synthetic language and scenario packs under `examples/packs/`, including English outbound-training, English customer-support, and Chinese outbound-training examples.
 
 See [docs/language-strategy.md](docs/language-strategy.md) and [docs/version-roadmap.md](docs/version-roadmap.md).
+
+The additional v0.6 edge-case packs are useful for checking identity questions, privacy boundaries, handoff requests, scheduling, pricing, and unsupported turns before adding a provider.
 
 ## Config Validation
 
@@ -289,7 +304,7 @@ See [docs/codex-oss-application.md](docs/codex-oss-application.md) for a draft a
 ## Roadmap
 
 - Add richer evaluation report exports.
-- Add more synthetic examples and documentation polish.
+- Add provider-neutral adapter examples for common hosting patterns without publishing credentials.
 - Keep API adapter examples provider-neutral and key-free.
 
 ## License

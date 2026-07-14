@@ -19,7 +19,9 @@ Language support is kept in separate synthetic fixture packs:
 
 - `examples/packs/en/outbound_training.jsonl`
 - `examples/packs/en/customer_support.jsonl`
+- `examples/packs/en/edge_cases.jsonl`
 - `examples/packs/zh/outbound_training.jsonl`
+- `examples/packs/zh/customer_support.jsonl`
 
 Each language pack should include:
 
@@ -28,6 +30,8 @@ Each language pack should include:
 - expected node
 - risk label expectations when relevant
 - notes for cultural or wording differences
+
+The v0.6 edge-case packs intentionally cover both supported and unsupported turns. The unsupported examples should resolve to `unknown` and `clarify_once`; they are useful regression checks for false confidence.
 
 ## Configuration Direction
 

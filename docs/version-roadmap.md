@@ -2,7 +2,7 @@
 
 This roadmap explains what is included now and what should be added later.
 
-## Current: v0.5 Validation And Language Packs
+## Current: v0.6 Example Hardening And Docs Polish
 
 The current package is a safe public baseline with a static synthetic review console, scripted persona sparring, an improvement workbench, config validation, and synthetic language/scenario packs:
 
@@ -31,14 +31,12 @@ The current package is a safe public baseline with a static synthetic review con
 
 This is enough for maintainers to test text routing, inspect completed synthetic runs, run scripted persona pressure tests, validate config changes, convert review findings into candidate rules, and connect their own ASR/TTS or multimodal speech stack locally.
 
-## Next: v0.6 Example Hardening And Docs Polish
+v0.6 improves adoption without changing the privacy boundary:
 
-Improve usability without changing the privacy boundary:
-
-- add more synthetic examples
-- clarify integration docs
-- tighten README usage paths
-- improve release notes
+- more synthetic edge-case examples in English and Chinese
+- a copyable ASR/TTS integration order and adapter contract
+- clearer README first-run and voice-integration paths
+- a release note that separates shipped behavior from future work
 
 ## Later: Evaluation Report Export
 
