@@ -35,7 +35,7 @@ function testPacksValidate() {
 function testPacksMatchEngine() {
   const packDir = path.join(root, "examples", "packs");
   const rows = listJsonlFiles(packDir).flatMap(readRows);
-  assert.ok(rows.length >= 12, "expected at least twelve synthetic pack rows");
+  assert.ok(rows.length >= 28, "expected at least twenty-eight synthetic pack rows");
 
   for (const row of rows) {
     const result = simulateTurn(row.text, { configDir });

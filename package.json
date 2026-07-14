@@ -1,6 +1,6 @@
 {
   "name": "voice-agent-lab",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A privacy-first lab for testing voice-agent intent routing, escalation rules, and improvement queues with synthetic conversations.",
   "private": false,
   "type": "commonjs",
