@@ -4,7 +4,7 @@
 [![Release](https://img.shields.io/github/v/release/lacocayxanh025-png/voice-agent-lab)](https://github.com/lacocayxanh025-png/voice-agent-lab/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Voice Agent Lab is a privacy-first two-sided conversation lab for phone and chat agents. It simulates both sides of a support or sales conversation: an agent that follows a knowledge base and policies, and a synthetic customer with a goal, background, objections, privacy concerns, patience level, and interruption behavior. Teams can review the exchange, find knowledge-base gaps, and turn those findings into candidate rules and regression cases before connecting real users or production channels.
+Voice Agent Lab is a privacy-first simulation and training lab for customer-service and phone agents. It creates realistic synthetic customers, runs phone-support, outbound-call, and chat-support scenarios, connects each turn to a customer-owned knowledge base, and helps teams improve answers, escalation rules, and handoff behavior before real users are involved.
 
 The current public release is v0.7.0. It keeps the core text-first and provider-neutral while adding a knowledge-base adapter contract, per-turn retrieval traces, synthetic knowledge items, and a concrete voice-integration guide.
 

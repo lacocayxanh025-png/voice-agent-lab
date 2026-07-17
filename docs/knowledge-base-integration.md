@@ -1,6 +1,6 @@
 # Knowledge-Base Integration
 
-Voice Agent Lab does not replace or copy a customer's knowledge base. It connects to the customer's existing search service through a small provider-neutral adapter.
+Voice Agent Lab is designed to train customer-service and phone agents against a customer's existing knowledge base. It connects to the customer's search service through a small provider-neutral adapter, retrieves relevant items during each simulated turn, and records the evidence used for review and improvement.
 
 ## Per-Turn Flow
 

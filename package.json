@@ -1,7 +1,7 @@
 {
   "name": "voice-agent-lab",
   "version": "0.7.0",
-  "description": "A privacy-first two-sided conversation lab for testing phone and chat agents against customer-owned knowledge bases with synthetic conversations.",
+  "description": "A privacy-first simulation and training lab for customer-service and phone agents with customer-owned knowledge bases.",
   "private": false,
   "type": "commonjs",
   "main": "src/engine.js",
