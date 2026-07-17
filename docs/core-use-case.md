@@ -1,6 +1,6 @@
 # Core Use Case
 
-Voice Agent Lab is built for the stage between a conversation knowledge base and a deployed phone or chat agent.
+Voice Agent Lab is a customer-service simulation and training layer between a conversation knowledge base and a deployed phone or chat agent. It gives teams a repeatable way to practice realistic support and outbound-call scenarios before exposing the workflow to real users.
 
 The central workflow is two-sided simulation:
 
@@ -13,7 +13,7 @@ synthetic customer side  <->  support or sales agent side
 
 The agent side contains the knowledge base, intent rules, response templates, escalation policy, handoff behavior, and stop-contact policy. The synthetic customer side contains a persona, scenario, goal, communication style, trust level, patience level, privacy sensitivity, objection profile, interruption behavior, and bounded randomness.
 
-## Concrete Phone Scenario
+## Concrete Customer-Service and Phone Scenario
 
 Consider an outbound service agent that needs to explain a service and identify whether the customer wants a follow-up.
 
