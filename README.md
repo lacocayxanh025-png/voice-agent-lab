@@ -6,7 +6,7 @@
 
 Voice Agent Lab is a privacy-first simulation and training lab for customer-service and phone agents. It creates realistic synthetic customers, runs phone-support, outbound-call, and chat-support scenarios, connects each turn to a customer-owned knowledge base, and helps teams improve answers, escalation rules, and handoff behavior before real users are involved.
 
-The current public release is v0.7.0. It keeps the core text-first and provider-neutral while adding a knowledge-base adapter contract, per-turn retrieval traces, synthetic knowledge items, and a concrete voice-integration guide.
+The current public release is v0.8.0. It keeps the core text-first and provider-neutral while adding a knowledge-base adapter contract, per-turn retrieval traces, synthetic knowledge items, a concrete voice-integration guide, and reviewable evaluation report export.
 
 It helps teams design and review:
 
@@ -88,6 +88,7 @@ npm test
 npm run validate:config
 npm run validate:knowledge
 npm run privacy:check
+npm run report:export
 node src/simulator.js --text "I want to cancel my account"
 node src/simulator.js --text "Do not call me again"
 node src/simulator.js --text "你们能帮我预约明天吗"
@@ -104,6 +105,8 @@ You can also open `public/demo.html` for a local reviewer demo. The page include
 The v0.2 review console is available at `public/review-console.html` when served from the repository root. It loads `examples/synthetic_review_runs.json` and lets maintainers inspect synthetic runs, cases, risk labels, handoff flags, and improvement hints. See [docs/review-console.md](docs/review-console.md).
 
 The v0.4 improvement workbench is available at `public/improvement-workbench.html` when served from the repository root. It loads `examples/improvement_queue.jsonl` and previews candidate rules for intent, keyword, response, handoff, or regression-case changes. See [docs/improvement-workbench.md](docs/improvement-workbench.md).
+
+The v0.8 evaluation report export summarizes synthetic runs into `examples/evaluation_report.json` or a path supplied with `--output`. It reports pass rate, review rate, high-risk cases, handoff signals, unknown intents, issue tags, and candidate review records. The report is for human review and does not write to a production knowledge base. See [docs/evaluation-report.md](docs/evaluation-report.md).
 
 The validation commands check routing configs, synthetic language/scenario packs, and the synthetic knowledge base before a maintainer opens a pull request:
 
@@ -181,6 +184,7 @@ examples/
   candidate_rules.json      Example proposed rule changes
   personas.json             Synthetic persona examples
   synthetic_review_runs.json Synthetic review-console examples
+  evaluation_report.json    Synthetic evaluation summary
 public/
   demo.html                 Small static reviewer demo
   review-console.html       Static synthetic run review console
@@ -192,11 +196,13 @@ schemas/
   config_responses.schema.json
   improvement_record.schema.json
   knowledge_item.schema.json
+  evaluation_report.schema.json
   persona.schema.json
   synthetic_case.schema.json
 scripts/
   check_no_sensitive_terms.js
   export_improvement_queue.js
+  export_evaluation_report.js
   generate_candidate_rules.js
   validate_config.js
   validate_knowledge_base.js
@@ -205,6 +211,7 @@ src/
   adapters/knowledge_base_adapter.js Knowledge-base provider contract and synthetic adapter
   engine.js                 Core matching and routing engine
   knowledge_retrieval.js    Per-turn retrieval context and provider trace
+  evaluation_report.js      Synthetic evaluation report aggregation
   improvement_workbench.js  Candidate rule generation helpers
   persona_sparring.js       Scripted persona sparring runner
   persona_runner.js         CLI wrapper for persona sparring
@@ -213,6 +220,7 @@ src/
 tests/
   config_validation.test.js
   engine.test.js
+  evaluation_report.test.js
   improvement_workbench.test.js
   knowledge_base.test.js
   persona_sparring.test.js

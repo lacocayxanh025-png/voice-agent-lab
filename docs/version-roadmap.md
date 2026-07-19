@@ -2,7 +2,7 @@
 
 This roadmap explains what is included now and what should be added later.
 
-## Current: v0.7 Knowledge-Base Integration
+## Current: v0.8 Evaluation Report Export
 
 The current package is a safe public baseline with a static synthetic review console, scripted persona sparring, an improvement workbench, config validation, and synthetic language/scenario packs:
 
@@ -30,6 +30,9 @@ The current package is a safe public baseline with a static synthetic review con
 - multi-scenario fixture rows for outbound training and customer support
 - no real audio or transcript data
 - synthetic knowledge-base fixture with per-turn retrieval traces
+- evaluation report export for synthetic review runs
+- pass, review, risk, handoff, unknown-intent, tag, and candidate-record metrics
+- per-run summary output with stable JSON shape
 
 This is enough for maintainers to test text routing, inspect completed synthetic runs, run scripted persona pressure tests, validate config changes, convert review findings into candidate rules, and connect their own ASR/TTS or multimodal speech stack locally.
 
@@ -49,9 +52,12 @@ v0.7 adds the knowledge-base connection layer without taking ownership of a cust
 - optional host-side response generator hook
 - explicit no-result behavior for improvement review
 
-## Later: Evaluation Report Export
+v0.8 adds a reviewable measurement layer without changing the privacy boundary:
 
-A later release can export review summaries such as pass rate, handoff rate, unknown-intent rate, risk distribution, and candidate-rule counts from synthetic runs.
+- `npm run report:export` CLI
+- synthetic evaluation report example and schema
+- aggregate and per-run metrics
+- no automatic production writeback
 
 ## Non-Goals
 

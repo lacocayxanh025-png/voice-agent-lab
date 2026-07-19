@@ -1,0 +1,91 @@
+{
+  "version": "0.8.0",
+  "report_type": "synthetic_evaluation",
+  "description": "Reviewable metrics generated from synthetic conversation runs. This report does not change production policy or write back to a customer knowledge base.",
+  "generated_at": "2026-01-01T00:00:00.000Z",
+  "source": {
+    "run_count": 3,
+    "case_count": 11,
+    "improvement_record_count": 2
+  },
+  "metrics": {
+    "total_runs": 3,
+    "total_cases": 11,
+    "passed_cases": 7,
+    "needs_review_cases": 4,
+    "pass_rate": 0.6364,
+    "needs_review_rate": 0.3636,
+    "high_risk_cases": 1,
+    "high_risk_rate": 0.0909,
+    "handoff_required_cases": 1,
+    "handoff_required_rate": 0.0909,
+    "handoff_recommended_cases": 1,
+    "handoff_recommended_rate": 0.0909,
+    "unknown_intent_cases": 2,
+    "unknown_intent_rate": 0.1818,
+    "candidate_review_records": 2
+  },
+  "issue_tags": {
+    "stop-contact": 1,
+    "safety-boundary": 1,
+    "identity": 2,
+    "privacy": 2,
+    "handoff": 1,
+    "callback-window": 1,
+    "scheduling": 1,
+    "bot-disclosure": 1,
+    "minimum-data": 1,
+    "pricing": 1,
+    "quote-boundary": 1,
+    "process": 1,
+    "unknown": 2,
+    "candidate-rule": 1,
+    "process-gap": 1
+  },
+  "problem_types": {
+    "safety_or_policy_boundary": 1,
+    "handoff_policy_review": 1,
+    "intent_match_error": 2
+  },
+  "runs": [
+    {
+      "run_id": "run-baseline-routing-001",
+      "label": "Baseline routing smoke test",
+      "status": "needs_review",
+      "total_cases": 5,
+      "passed_cases": 3,
+      "needs_review_cases": 2,
+      "high_risk_cases": 1,
+      "handoff_required_cases": 1,
+      "handoff_recommended_cases": 0,
+      "unknown_intent_cases": 0,
+      "pass_rate": 0.6
+    },
+    {
+      "run_id": "run-persona-pressure-001",
+      "label": "Privacy-sensitive persona pressure test",
+      "status": "passed",
+      "total_cases": 4,
+      "passed_cases": 4,
+      "needs_review_cases": 0,
+      "high_risk_cases": 0,
+      "handoff_required_cases": 0,
+      "handoff_recommended_cases": 1,
+      "unknown_intent_cases": 0,
+      "pass_rate": 1
+    },
+    {
+      "run_id": "run-unknown-input-001",
+      "label": "Unknown-turn review queue",
+      "status": "needs_review",
+      "total_cases": 2,
+      "passed_cases": 0,
+      "needs_review_cases": 2,
+      "high_risk_cases": 0,
+      "handoff_required_cases": 0,
+      "handoff_recommended_cases": 0,
+      "unknown_intent_cases": 2,
+      "pass_rate": 0
+    }
+  ]
+}
