@@ -69,3 +69,13 @@ Goal: connect the review loop to a customer-owned knowledge base without publish
 - Optional host-side response generator hook.
 - Synthetic knowledge-base fixture, schema, validator, and tests.
 - Documentation for phone, outbound-sales, web-chat, and WeChat-like support channels.
+
+## v0.8.0
+
+Goal: make synthetic training results measurable before a maintainer reviews knowledge-base or policy changes.
+
+- Evaluation report export CLI.
+- Aggregate pass, review, risk, handoff, and unknown-intent metrics.
+- Issue-tag and improvement-problem counts.
+- Per-run summaries and synthetic report schema.
+- Explicit human-review boundary with no automatic production writeback.
